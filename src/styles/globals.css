@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* ============================================================
+   LinkYaar Design Tokens
+   ------------------------------------------------------------
+   Palette: "Midnight Violet" — warm white canvas, deep midnight
+   ink, electric violet accent, soft lavender surfaces.
+   All colors in OKLCH (perceptually uniform, wide gamut).
+   ============================================================ */
+
+:root {
+  /* Canvas & ink */
+  --background: oklch(0.984 0.004 85); /* warm white */
+  --foreground: oklch(0.19 0.022 286); /* near-black midnight ink */
+
+  /* Surfaces */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.19 0.022 286);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.19 0.022 286);
+
+  /* Brand */
+  --primary: oklch(0.24 0.05 289); /* deep midnight */
+  --primary-foreground: oklch(0.984 0.004 85);
+  --accent: oklch(0.565 0.235 292); /* electric violet */
+  --accent-foreground: oklch(0.984 0.004 85);
+  --secondary: oklch(0.945 0.026 295); /* soft lavender */
+  --secondary-foreground: oklch(0.32 0.06 290);
+
+  /* Support */
+  --muted: oklch(0.955 0.008 85);
+  --muted-foreground: oklch(0.5 0.02 286);
+  --destructive: oklch(0.62 0.15 25); /* muted coral */
+  --destructive-foreground: oklch(0.984 0.004 85);
+  --success: oklch(0.62 0.11 165); /* muted emerald */
+  --success-foreground: oklch(0.984 0.004 85);
+
+  /* Lines & focus */
+  --border: oklch(0.915 0.008 286);
+  --input: oklch(0.915 0.008 286);
+  --ring: oklch(0.565 0.235 292);
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Canvas & ink */
+  --background: oklch(0.165 0.014 285); /* graphite midnight */
+  --foreground: oklch(0.955 0.006 85);
+
+  /* Surfaces */
+  --card: oklch(0.205 0.016 286);
+  --card-foreground: oklch(0.955 0.006 85);
+  --popover: oklch(0.205 0.016 286);
+  --popover-foreground: oklch(0.955 0.006 85);
+
+  /* Brand */
+  --primary: oklch(0.955 0.006 85);
+  --primary-foreground: oklch(0.2 0.03 288);
+  --accent: oklch(0.64 0.21 293); /* violet lifts in the dark */
+  --accent-foreground: oklch(0.984 0.004 85);
+  --secondary: oklch(0.26 0.03 290);
+  --secondary-foreground: oklch(0.9 0.03 295);
+
+  /* Support */
+  --muted: oklch(0.235 0.014 286);
+  --muted-foreground: oklch(0.68 0.015 286);
+  --destructive: oklch(0.66 0.14 25);
+  --destructive-foreground: oklch(0.984 0.004 85);
+  --success: oklch(0.68 0.11 165);
+  --success-foreground: oklch(0.15 0.02 165);
+
+  /* Lines & focus */
+  --border: oklch(0.28 0.014 286);
+  --input: oklch(0.28 0.014 286);
+  --ring: oklch(0.64 0.21 293);
+}
+
+@theme inline {
+  /* Colors → Tailwind utilities (bg-background, text-accent, …) */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Radius ramp */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+
+  /* Elevation — soft, diffuse, never harsh */
+  --shadow-soft:
+    0 1px 2px oklch(0.19 0.02 286 / 4%), 0 4px 16px oklch(0.19 0.02 286 / 6%);
+  --shadow-lift:
+    0 2px 4px oklch(0.19 0.02 286 / 5%), 0 12px 32px oklch(0.19 0.02 286 / 10%);
+  --shadow-float:
+    0 4px 8px oklch(0.19 0.02 286 / 6%), 0 24px 64px oklch(0.19 0.02 286 / 14%);
+  --shadow-glow:
+    0 0 0 1px oklch(0.565 0.235 292 / 12%), 0 4px 24px oklch(0.565 0.235 292 / 20%);
+
+  /* Motion — Apple-like curves, 200–500ms */
+  --ease-out-soft: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-apple: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 200ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Visible, on-brand focus for keyboard users */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+
+  ::selection {
+    @apply bg-accent/20;
+  }
+
+  /* Respect users who opt out of motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
