@@ -6,7 +6,7 @@ import { after } from 'next/server'
 
 import { PublicLink } from '@/features/public-profile/components/public-link'
 import { SocialsRow } from '@/features/public-profile/components/socials-row'
-import { createClient } from '@/lib/supabase/server'
+import { createAnonClient } from '@/lib/supabase/anon'
 import { siteConfig } from '@/config/site'
 import { getPublicProfile } from '@/services/profiles'
 
@@ -54,12 +54,14 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
   const detailLine = [profile.occupation, profile.location].filter(Boolean).join(' · ')
 
   // Dashboard iframe preview should not inflate analytics.
-  // after() defers the insert until the response has been sent.
+  // after() defers the insert until the response has been sent, so it
+  // must use the cookie-free anon client (request scope is gone by then).
   if (preview !== '1') {
-    const referrer = (await headers()).get('referer')
-    const country = (await headers()).get('x-vercel-ip-country')
+    const headerList = await headers()
+    const referrer = headerList.get('referer')
+    const country = headerList.get('x-vercel-ip-country')
     after(async () => {
-      const supabase = await createClient()
+      const supabase = createAnonClient()
       await supabase.from('profile_views').insert({
         profile_id: profile.id,
         referrer,
