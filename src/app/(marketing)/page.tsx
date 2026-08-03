@@ -1,4 +1,6 @@
+import { AnalyticsSection } from '@/features/marketing/components/analytics-section'
 import { Cta } from '@/features/marketing/components/cta'
+import { FaqSection } from '@/features/marketing/components/faq-section'
 import { Features } from '@/features/marketing/components/features'
 import { Hero } from '@/features/marketing/components/hero'
 import { ThemeShowcase } from '@/features/marketing/components/theme-showcase'
@@ -8,7 +10,9 @@ export default function HomePage() {
     <>
       <Hero />
       <Features />
+      <AnalyticsSection />
       <ThemeShowcase />
+      <FaqSection />
       <Cta />
     </>
   )

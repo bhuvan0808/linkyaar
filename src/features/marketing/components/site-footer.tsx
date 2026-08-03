@@ -82,32 +82,13 @@ const columns: {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-6 py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_repeat(4,1fr)]">
-          <div>
-            <Link href="/" className="flex items-center gap-2" aria-label="LinkYaar home">
-              {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand glyph */}
-              <img
-                src="/brand/glyph.png"
-                alt=""
-                width={28}
-                height={28}
-                className="size-7 rounded-lg"
-              />
-              <span className="text-[17px] font-semibold tracking-tight">
-                Link<span className="text-accent">Yaar</span>
-              </span>
-            </Link>
-            <p className="mt-3 max-w-45 text-sm text-muted-foreground">
-              {siteConfig.tagline}
-            </p>
-          </div>
-
+    <footer className="bg-brand-ink">
+      <div className="mx-auto max-w-7xl px-6 pt-20 pb-10">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
-              <h3 className="text-sm font-semibold">{column.heading}</h3>
-              <ul className="mt-3 flex flex-col gap-2.5">
+              <h3 className="text-sm font-bold text-white">{column.heading}</h3>
+              <ul className="mt-4 flex flex-col gap-3">
                 {column.links.map((item) => (
                   <li key={item.label}>
                     {item.external ? (
@@ -115,14 +96,14 @@ export function SiteFooter() {
                         href={item.href}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                        className="text-[15px] font-medium text-white/55 transition-colors duration-200 hover:text-white"
                       >
                         {item.label}
                       </a>
                     ) : (
                       <Link
                         href={item.href}
-                        className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                        className="text-[15px] font-medium text-white/55 transition-colors duration-200 hover:text-white"
                       >
                         {item.label}
                       </Link>
@@ -134,15 +115,23 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="mt-16 flex flex-col gap-3 text-sm font-medium text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 LinkYaar contributors · MIT licensed · open source forever</p>
           <Link
             href="/login?mode=signup"
-            className="font-medium transition-colors duration-200 hover:text-foreground"
+            className="transition-colors duration-200 hover:text-white"
           >
             Create your LinkYaar →
           </Link>
         </div>
+
+        {/* Giant wordmark */}
+        <p
+          className="mt-12 -mb-4 text-center font-display text-[19vw] leading-[0.8] font-black tracking-tight text-white/10 select-none sm:text-[13rem]"
+          aria-hidden
+        >
+          LinkYaar
+        </p>
       </div>
     </footer>
   )

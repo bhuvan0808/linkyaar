@@ -2,11 +2,16 @@
 
 import Link from 'next/link'
 import { motion } from 'motion/react'
-import { siGithub } from 'simple-icons'
 
-import { BrandIcon } from '@/components/shared/brand-icon'
 import { Button } from '@/components/ui/button'
 import { siteConfig } from '@/config/site'
+
+const nav = [
+  { label: 'Features', href: '/#features' },
+  { label: 'Themes', href: '/#themes' },
+  { label: 'FAQs', href: '/help' },
+  { label: 'GitHub', href: siteConfig.links.github, external: true },
+]
 
 export function SiteHeader() {
   return (
@@ -14,43 +19,57 @@ export function SiteHeader() {
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-      className="fixed inset-x-0 top-0 z-50"
+      className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5"
     >
-      <div className="mx-auto mt-4 flex max-w-5xl items-center justify-between rounded-2xl border border-white/40 bg-white/60 px-4 py-2.5 shadow-[var(--shadow-soft)] backdrop-blur-xl sm:px-6 dark:border-white/10 dark:bg-black/40">
-        <Link
-          href="/"
-          className="flex items-center gap-2 text-[17px] font-semibold tracking-tight"
-          aria-label="LinkYaar home"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand glyph */}
-          <img
-            src="/brand/glyph.png"
-            alt=""
-            width={28}
-            height={28}
-            className="size-7 rounded-lg"
-          />
-          Link<span className="-ml-1.5 text-accent">Yaar</span>
-        </Link>
+      <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full bg-white py-2.5 pr-2.5 pl-6 shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
+        <div className="flex items-center gap-8">
+          <Link
+            href="/"
+            className="font-display text-[22px] font-black tracking-tight text-brand-ink"
+            aria-label="LinkYaar home"
+          >
+            LinkYaar<span className="text-brand-violet">*</span>
+          </Link>
+          <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+            {nav.map((item) =>
+              item.external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full px-4 py-2 text-[15px] font-medium text-brand-ink/70 transition-colors duration-200 hover:bg-brand-ink/5 hover:text-brand-ink"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className="rounded-full px-4 py-2 text-[15px] font-medium text-brand-ink/70 transition-colors duration-200 hover:bg-brand-ink/5 hover:text-brand-ink"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
+          </nav>
+        </div>
 
-        <nav className="flex items-center gap-1.5 sm:gap-2" aria-label="Main">
-          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-            <a href={siteConfig.links.github} target="_blank" rel="noreferrer">
-              <BrandIcon path={siGithub.path} />
-              <span>GitHub</span>
-            </a>
-          </Button>
-          <Button variant="ghost" size="sm" asChild>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="secondary"
+            asChild
+            className="h-11 rounded-2xl bg-[oklch(0.95_0.005_95)] px-5 text-[15px] font-semibold text-brand-ink hover:bg-[oklch(0.92_0.005_95)]"
+          >
             <Link href="/login">Log in</Link>
           </Button>
           <Button
-            size="sm"
             asChild
-            className="bg-accent text-accent-foreground shadow-[var(--shadow-glow)] transition-all duration-300 hover:-translate-y-px hover:bg-accent/90"
+            className="h-11 rounded-full bg-brand-ink px-6 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.02] hover:bg-brand-ink/90"
           >
-            <Link href="/login?mode=signup">Claim your link</Link>
+            <Link href="/login?mode=signup">Sign up free</Link>
           </Button>
-        </nav>
+        </div>
       </div>
     </motion.header>
   )

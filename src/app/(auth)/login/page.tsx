@@ -13,25 +13,25 @@ export default function LoginPage() {
   return (
     <main className="grid min-h-dvh lg:grid-cols-[1fr_1.1fr]">
       {/* Art panel */}
-      <aside className="relative hidden overflow-hidden bg-gradient-to-br from-[oklch(0.24_0.06_300)] via-[oklch(0.19_0.05_285)] to-[oklch(0.13_0.04_265)] lg:block">
-        <div
-          className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,oklch(0.64_0.21_293/0.35),transparent_55%)]"
-          aria-hidden
-        />
+      <aside className="relative hidden overflow-hidden bg-brand-ink lg:block">
         <div className="relative flex h-full flex-col justify-between p-12">
-          <Link href="/" className="text-lg font-semibold tracking-tight text-white">
-            Link<span className="text-[oklch(0.75_0.15_293)]">Yaar</span>
+          <Link
+            href="/"
+            className="font-display text-xl font-black tracking-tight text-white"
+          >
+            LinkYaar<span className="text-brand-lime">*</span>
           </Link>
           <blockquote className="max-w-md">
-            <p className="text-2xl leading-snug font-medium text-balance text-white">
-              “One page that finally feels like my whole self — not a menu of corporate
-              buttons.”
+            <p className="font-display text-4xl leading-tight font-black text-balance text-brand-lime">
+              “One page that finally feels like my whole self.”
             </p>
-            <footer className="mt-4 text-sm text-white/60">
+            <footer className="mt-5 text-sm font-medium text-white/50">
               — every creator, eventually
             </footer>
           </blockquote>
-          <p className="text-xs text-white/40">Open source · MIT · no lock-in</p>
+          <p className="text-xs font-medium text-white/40">
+            Open source · MIT · no lock-in
+          </p>
         </div>
       </aside>
 

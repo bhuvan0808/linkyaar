@@ -108,12 +108,16 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-bricolage), var(--font-geist-sans), sans-serif;
 
-  /* Brand accents — sampled from the LinkYaar logo */
-  --color-brand-pink: oklch(0.64 0.23 3);
-  --color-brand-orange: oklch(0.76 0.16 55);
-  --color-brand-indigo: oklch(0.4 0.21 285);
-  --color-brand-ink: oklch(0.21 0.06 295);
-  --color-brand-cream: oklch(0.97 0.015 85);
+  /* Brand palette — flat, bold, Linktree-energy color blocks */
+  --color-brand-lime: oklch(0.91 0.2 118); /* acid lime */
+  --color-brand-ink: oklch(0.29 0.14 296); /* deep violet ink */
+  --color-brand-plum: oklch(0.33 0.12 355); /* dark plum (FAQ block) */
+  --color-brand-plum-deep: oklch(0.26 0.1 355);
+  --color-brand-lilac: oklch(0.89 0.07 300); /* pastel lilac */
+  --color-brand-blush: oklch(0.9 0.07 350); /* pastel blush */
+  --color-brand-sage: oklch(0.93 0.04 120); /* pale sage */
+  --color-brand-cream: oklch(0.965 0.005 95); /* section off-white */
+  --color-brand-violet: oklch(0.55 0.25 293); /* vivid accent */
 
   /* Radius ramp */
   --radius-sm: calc(var(--radius) - 4px);
