@@ -6,7 +6,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   ogImage: '/og.png',
   links: {
-    github: 'https://github.com/linkyaar/linkyaar',
+    github: 'https://github.com/bhuvan0808/linkyaar',
   },
 } as const
 
