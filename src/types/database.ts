@@ -1,8 +1,8 @@
 /**
  * Database types for the Supabase client.
  *
- * Hand-written to mirror supabase/migrations. Once a Supabase
- * project is linked, regenerate with:
+ * Hand-written to mirror supabase/migrations. Once the Supabase CLI
+ * is linked, regenerate with:
  *   pnpm supabase gen types typescript --linked > src/types/database.ts
  */
 import { type Json } from '@/types/json'
@@ -19,6 +19,11 @@ export interface Database {
           avatar_url: string | null
           theme_id: string | null
           is_public: boolean
+          headline: string | null
+          occupation: string | null
+          location: string | null
+          pronouns: string | null
+          cover_url: string | null
           created_at: string
           updated_at: string
         }
@@ -30,6 +35,11 @@ export interface Database {
           avatar_url?: string | null
           theme_id?: string | null
           is_public?: boolean
+          headline?: string | null
+          occupation?: string | null
+          location?: string | null
+          pronouns?: string | null
+          cover_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -41,6 +51,11 @@ export interface Database {
           avatar_url?: string | null
           theme_id?: string | null
           is_public?: boolean
+          headline?: string | null
+          occupation?: string | null
+          location?: string | null
+          pronouns?: string | null
+          cover_url?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -54,6 +69,12 @@ export interface Database {
           url: string
           position: number
           is_enabled: boolean
+          description: string | null
+          thumbnail_url: string | null
+          emoji: string | null
+          is_featured: boolean
+          starts_at: string | null
+          ends_at: string | null
           created_at: string
           updated_at: string
         }
@@ -64,6 +85,12 @@ export interface Database {
           url: string
           position?: number
           is_enabled?: boolean
+          description?: string | null
+          thumbnail_url?: string | null
+          emoji?: string | null
+          is_featured?: boolean
+          starts_at?: string | null
+          ends_at?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -74,6 +101,12 @@ export interface Database {
           url?: string
           position?: number
           is_enabled?: boolean
+          description?: string | null
+          thumbnail_url?: string | null
+          emoji?: string | null
+          is_featured?: boolean
+          starts_at?: string | null
+          ends_at?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -203,7 +236,24 @@ export interface Database {
       }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      delete_user: {
+        Args: Record<string, never>
+        Returns: undefined
+      }
+      username_available: {
+        Args: { candidate: string }
+        Returns: boolean
+      }
+      analytics_daily: {
+        Args: { p_days?: number }
+        Returns: { day: string; views: number; clicks: number }[]
+      }
+      analytics_top_links: {
+        Args: { p_days?: number }
+        Returns: { link_id: string; title: string; clicks: number }[]
+      }
+    }
     Enums: Record<string, never>
     CompositeTypes: Record<string, never>
   }
