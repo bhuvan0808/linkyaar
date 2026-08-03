@@ -16,7 +16,7 @@ export async function ThemeShowcase() {
     <section className="border-y border-border bg-secondary/30 py-20 sm:py-24">
       <div className="mx-auto max-w-6xl px-6">
         <FadeIn className="mx-auto max-w-2xl text-center">
-          <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-balance sm:text-5xl">
             Fifteen moods. Zero CSS required.
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">

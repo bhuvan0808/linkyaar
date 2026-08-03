@@ -39,7 +39,7 @@ export function Features() {
   return (
     <section className="mx-auto max-w-6xl px-6 py-20 sm:py-28" id="features">
       <FadeIn className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-semibold tracking-tight text-balance sm:text-5xl">
+        <h2 className="font-display text-3xl font-extrabold tracking-tight text-balance sm:text-5xl">
           Everything a creator page should do
         </h2>
         <p className="mt-4 text-lg text-pretty text-muted-foreground">

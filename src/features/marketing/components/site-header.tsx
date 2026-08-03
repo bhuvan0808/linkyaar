@@ -19,10 +19,18 @@ export function SiteHeader() {
       <div className="mx-auto mt-4 flex max-w-5xl items-center justify-between rounded-2xl border border-white/40 bg-white/60 px-4 py-2.5 shadow-[var(--shadow-soft)] backdrop-blur-xl sm:px-6 dark:border-white/10 dark:bg-black/40">
         <Link
           href="/"
-          className="text-[17px] font-semibold tracking-tight"
+          className="flex items-center gap-2 text-[17px] font-semibold tracking-tight"
           aria-label="LinkYaar home"
         >
-          Link<span className="text-accent">Yaar</span>
+          {/* eslint-disable-next-line @next/next/no-img-element -- 28px brand glyph */}
+          <img
+            src="/brand/glyph.png"
+            alt=""
+            width={28}
+            height={28}
+            className="size-7 rounded-lg"
+          />
+          Link<span className="-ml-1.5 text-accent">Yaar</span>
         </Link>
 
         <nav className="flex items-center gap-1.5 sm:gap-2" aria-label="Main">

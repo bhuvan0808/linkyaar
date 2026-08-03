@@ -2,6 +2,9 @@
 
 import { motion, useReducedMotion } from 'motion/react'
 import { BarChart3, Palette } from 'lucide-react'
+import { siGithub, siInstagram, siSpotify, siX, siYoutube } from 'simple-icons'
+
+import { BrandIcon } from '@/components/shared/brand-icon'
 
 const demoLinks = [
   { emoji: '🎬', label: 'New video — behind the scenes' },
@@ -10,9 +13,9 @@ const demoLinks = [
   { emoji: '☕', label: 'Buy me a coffee' },
 ]
 
-const demoSocials = ['IG', 'YT', 'X', 'GH']
+const demoSocials = [siInstagram, siYoutube, siX, siSpotify, siGithub]
 
-/** Floating phone preview of a themed creator profile. */
+/** Floating phone preview of a creator profile, cream on the dark hero. */
 export function PhoneMock() {
   const reduce = useReducedMotion()
 
@@ -23,14 +26,12 @@ export function PhoneMock() {
         initial={{ opacity: 0, x: 24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.9, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-        className="absolute top-16 -right-6 z-10 hidden items-center gap-2.5 rounded-2xl border border-white/50 bg-white/80 px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur-xl sm:flex dark:border-white/10 dark:bg-white/10"
+        className="absolute top-16 -right-6 z-10 hidden items-center gap-2.5 rounded-2xl bg-white/95 px-4 py-3 text-[oklch(0.25_0.05_295)] shadow-[var(--shadow-float)] sm:flex"
       >
-        <BarChart3 className="size-4 text-accent" />
+        <BarChart3 className="size-4 text-brand-pink" />
         <div>
           <p className="text-sm leading-none font-semibold">12,480</p>
-          <p className="mt-1 text-[11px] leading-none text-muted-foreground">
-            views this week
-          </p>
+          <p className="mt-1 text-[11px] leading-none opacity-60">views this week</p>
         </div>
       </motion.div>
 
@@ -39,40 +40,38 @@ export function PhoneMock() {
         initial={{ opacity: 0, x: -24 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.1, duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-        className="absolute bottom-24 -left-8 z-10 hidden items-center gap-2.5 rounded-2xl border border-white/50 bg-white/80 px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur-xl sm:flex dark:border-white/10 dark:bg-white/10"
+        className="absolute bottom-24 -left-8 z-10 hidden items-center gap-2.5 rounded-2xl bg-white/95 px-4 py-3 text-[oklch(0.25_0.05_295)] shadow-[var(--shadow-float)] sm:flex"
       >
-        <Palette className="size-4 text-accent" />
+        <Palette className="size-4 text-brand-orange" />
         <div>
           <p className="text-sm leading-none font-semibold">15 themes</p>
-          <p className="mt-1 text-[11px] leading-none text-muted-foreground">
-            one-tap restyle
-          </p>
+          <p className="mt-1 text-[11px] leading-none opacity-60">one-tap restyle</p>
         </div>
       </motion.div>
 
-      {/* Phone */}
+      {/* Phone — warm cream against the midnight hero */}
       <motion.div
-        animate={reduce ? undefined : { y: [0, -10, 0] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-        className="relative mx-auto w-[280px] rounded-[2.75rem] border border-white/20 bg-gradient-to-b from-[oklch(0.22_0.06_300)] to-[oklch(0.13_0.04_265)] p-5 shadow-[var(--shadow-float)] sm:w-[300px]"
+        animate={reduce ? undefined : { y: [0, -10, 0], rotate: [0, -1, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative mx-auto w-[280px] rounded-[2.75rem] bg-brand-cream p-5 shadow-[0_32px_80px_rgba(0,0,0,0.45)] ring-8 ring-white/10 sm:w-[300px]"
       >
-        <div className="mx-auto mb-5 h-1.5 w-16 rounded-full bg-white/20" />
+        <div className="mx-auto mb-5 h-1.5 w-16 rounded-full bg-black/10" />
 
-        <div className="flex flex-col items-center text-center">
-          <div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-[oklch(0.7_0.18_293)] to-[oklch(0.55_0.24_292)] text-2xl shadow-[var(--shadow-glow)]">
+        <div className="flex flex-col items-center text-center text-brand-ink">
+          <div className="flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-brand-pink to-brand-indigo text-2xl shadow-[var(--shadow-glow)]">
             🪄
           </div>
-          <p className="mt-3 text-[15px] font-semibold text-white">Maya Draws</p>
-          <p className="mt-1 text-xs text-white/60">
+          <p className="mt-3 text-[15px] font-bold">Maya Draws</p>
+          <p className="mt-1 text-xs opacity-60">
             Illustrator · 200k friends on the internet
           </p>
-          <div className="mt-3 flex gap-2">
-            {demoSocials.map((s) => (
+          <div className="mt-3 flex gap-1.5">
+            {demoSocials.map((icon) => (
               <span
-                key={s}
-                className="flex size-7 items-center justify-center rounded-full bg-white/10 text-[9px] font-semibold text-white/80"
+                key={icon.title}
+                className="flex size-7 items-center justify-center rounded-full bg-black/5 text-brand-ink/70"
               >
-                {s}
+                <BrandIcon path={icon.path} className="size-3.5" />
               </span>
             ))}
           </div>
@@ -89,17 +88,19 @@ export function PhoneMock() {
                 duration: 0.45,
                 ease: [0.32, 0.72, 0, 1],
               }}
-              className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-sm"
+              className={`flex items-center gap-3 rounded-full px-4 py-3 ${
+                i === 0
+                  ? 'bg-brand-pink text-white shadow-[0_6px_20px_oklch(0.64_0.23_3/0.35)]'
+                  : 'bg-white text-brand-ink shadow-[var(--shadow-soft)]'
+              }`}
             >
               <span className="text-base">{link.emoji}</span>
-              <span className="truncate text-[13px] font-medium text-white/90">
-                {link.label}
-              </span>
+              <span className="truncate text-[13px] font-semibold">{link.label}</span>
             </motion.div>
           ))}
         </div>
 
-        <p className="mt-6 text-center text-[10px] tracking-wide text-white/40">
+        <p className="mt-6 text-center text-[10px] tracking-wide text-brand-ink/40">
           linkyaar / maya
         </p>
       </motion.div>

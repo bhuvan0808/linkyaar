@@ -106,6 +106,14 @@
   /* Typography */
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-bricolage), var(--font-geist-sans), sans-serif;
+
+  /* Brand accents — sampled from the LinkYaar logo */
+  --color-brand-pink: oklch(0.64 0.23 3);
+  --color-brand-orange: oklch(0.76 0.16 55);
+  --color-brand-indigo: oklch(0.4 0.21 285);
+  --color-brand-ink: oklch(0.21 0.06 295);
+  --color-brand-cream: oklch(0.97 0.015 85);
 
   /* Radius ramp */
   --radius-sm: calc(var(--radius) - 4px);

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { motion, useReducedMotion } from 'motion/react'
 
 import { Button } from '@/components/ui/button'
@@ -13,75 +13,57 @@ export function Hero() {
   const reduce = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Aurora background */}
+    <section className="relative overflow-hidden bg-brand-ink">
+      {/* Soft aurora depth on the midnight block */}
       <div className="pointer-events-none absolute inset-0" aria-hidden>
         <motion.div
-          animate={reduce ? undefined : { x: [0, 40, 0], y: [0, 24, 0] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-32 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.72_0.16_293/0.28),transparent_65%)] blur-3xl"
-        />
-        <motion.div
-          animate={reduce ? undefined : { x: [0, -32, 0], y: [0, 32, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-40 -left-40 h-[420px] w-[420px] rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.85_0.08_320/0.35),transparent_65%)] blur-3xl"
-        />
-        <motion.div
-          animate={reduce ? undefined : { x: [0, 28, 0], y: [0, -20, 0] }}
+          animate={reduce ? undefined : { x: [0, 36, 0], y: [0, 20, 0] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-64 -right-32 h-[380px] w-[380px] rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.8_0.1_190/0.25),transparent_65%)] blur-3xl"
+          className="absolute -top-40 left-1/3 h-[560px] w-[760px] rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.5_0.24_310/0.35),transparent_62%)] blur-3xl"
+        />
+        <motion.div
+          animate={reduce ? undefined : { x: [0, -28, 0], y: [0, 26, 0] }}
+          transition={{ duration: 24, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -right-40 bottom-0 h-[460px] w-[460px] rounded-full bg-[radial-gradient(ellipse_at_center,oklch(0.7_0.19_45/0.22),transparent_62%)] blur-3xl"
         />
       </div>
 
-      <div className="relative mx-auto grid max-w-6xl gap-16 px-6 pt-36 pb-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:pt-44 lg:pb-28">
-        <div className="flex max-w-xl flex-col items-start">
-          <motion.span
-            initial={reduce ? false : { opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: EASE }}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3.5 py-1.5 text-[13px] font-medium shadow-[var(--shadow-soft)] backdrop-blur"
-          >
-            <Sparkles className="size-3.5 text-accent" aria-hidden />
-            Open source · free forever
-          </motion.span>
-
+      <div className="relative mx-auto grid max-w-6xl gap-14 px-6 pt-36 pb-24 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pt-44 lg:pb-32">
+        <div className="flex max-w-2xl flex-col items-start">
           <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 24 }}
+            initial={reduce ? false : { opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: EASE }}
-            className="mt-6 text-5xl font-semibold tracking-tight text-balance sm:text-6xl lg:text-7xl"
+            transition={{ duration: 0.65, ease: EASE }}
+            className="font-display text-[2.75rem] leading-[1.02] font-extrabold tracking-tight text-balance text-brand-cream sm:text-6xl lg:text-[5.25rem]"
           >
-            Everything you are.
-            <span className="block bg-gradient-to-r from-[oklch(0.55_0.24_292)] via-[oklch(0.62_0.22_310)] to-[oklch(0.65_0.18_260)] bg-clip-text text-transparent">
-              One beautiful link.
-            </span>
+            Everything you are.{' '}
+            <span className="text-brand-pink">One beautiful link.</span>
           </motion.h1>
 
           <motion.p
             initial={reduce ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16, ease: EASE }}
-            className="mt-6 text-lg text-pretty text-muted-foreground sm:text-xl"
+            transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
+            className="mt-6 max-w-lg text-lg text-pretty text-brand-cream/70 sm:text-xl"
           >
-            Your links, your socials, your work, your vibe — gathered into one page that
-            actually feels like you. Set up in minutes. Yours forever.
+            Join creators using LinkYaar for their links, socials, work, and vibe — one
+            page that actually feels like you. Free and open source, forever.
           </motion.p>
 
           <motion.div
             initial={reduce ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: EASE }}
-            className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:items-center"
+            transition={{ duration: 0.6, delay: 0.22, ease: EASE }}
+            className="mt-9 flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <div className="flex h-12 flex-1 items-center rounded-full border border-border bg-card pr-1.5 pl-5 shadow-[var(--shadow-soft)] transition-shadow duration-300 focus-within:shadow-[var(--shadow-glow)]">
-              <span className="text-sm text-muted-foreground">linkyaar/</span>
-              <span className="ml-0.5 flex-1 text-sm font-medium text-foreground/80">
+            <div className="flex h-14 flex-1 items-center rounded-2xl bg-white pr-2 pl-5 shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+              <span className="text-sm font-medium text-black/40">linkyaar/</span>
+              <span className="ml-0.5 flex-1 text-sm font-semibold text-black/80">
                 yourname
               </span>
               <Button
-                size="sm"
                 asChild
-                className="h-9 rounded-full bg-accent px-4 text-accent-foreground transition-transform duration-300 hover:scale-[1.03] hover:bg-accent/90"
+                className="h-10 rounded-xl bg-brand-pink px-5 font-semibold text-white transition-transform duration-300 hover:scale-[1.03] hover:bg-brand-pink/90"
               >
                 <Link href="/login?mode=signup">
                   Claim it
@@ -95,7 +77,7 @@ export function Hero() {
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-4 text-[13px] text-muted-foreground"
+            className="mt-5 text-[13px] text-brand-cream/45"
           >
             No credit card. No lock-in. MIT licensed — read every line on GitHub.
           </motion.p>
@@ -104,11 +86,17 @@ export function Hero() {
         <motion.div
           initial={reduce ? false : { opacity: 0, scale: 0.94, y: 32 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.28, ease: EASE }}
         >
           <PhoneMock />
         </motion.div>
       </div>
+
+      {/* Curved seam into the next section */}
+      <div
+        className="h-8 rounded-t-[2.5rem] bg-background sm:h-12 sm:rounded-t-[4rem]"
+        aria-hidden
+      />
     </section>
   )
 }

@@ -7,11 +7,12 @@ export const revalidate = 3600
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
-    {
-      url: siteConfig.url,
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
+    { url: siteConfig.url, changeFrequency: 'weekly', priority: 1 },
+    ...['/about', '/help', '/terms', '/privacy', '/cookies'].map((path) => ({
+      url: `${siteConfig.url}${path}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.4,
+    })),
   ]
 
   const supabase = await createClient()
