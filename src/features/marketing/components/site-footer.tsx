@@ -84,6 +84,19 @@ export function SiteFooter() {
   return (
     <footer className="bg-brand-ink">
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-10">
+        <div className="mb-14 flex items-center gap-2.5">
+          {/* eslint-disable-next-line @next/next/no-img-element -- small brand glyph */}
+          <img
+            src="/brand/glyph-white.png"
+            alt=""
+            width={30}
+            height={30}
+            className="h-7.5 w-auto"
+          />
+          <span className="font-display text-2xl font-black tracking-tight text-white">
+            LinkYaar
+          </span>
+        </div>
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
