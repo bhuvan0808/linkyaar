@@ -24,6 +24,19 @@ export default async function OnboardingPage() {
         aria-hidden
       />
       <div className="relative w-full max-w-md text-center">
+        <div className="mb-10 flex items-center justify-center gap-2">
+          {/* eslint-disable-next-line @next/next/no-img-element -- brand glyph */}
+          <img
+            src="/brand/glyph-ink.png"
+            alt=""
+            width={28}
+            height={28}
+            className="h-7 w-auto"
+          />
+          <span className="font-display text-xl font-black tracking-tight text-primary">
+            LinkYaar
+          </span>
+        </div>
         <p className="text-sm font-semibold tracking-wide text-accent uppercase">
           One last thing
         </p>

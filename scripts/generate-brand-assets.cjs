@@ -65,14 +65,14 @@ async function main() {
     <svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
       <text x="600" y="475" text-anchor="middle"
         font-family="Segoe UI, Arial, sans-serif" font-weight="900"
-        font-size="96" fill="#2E1065">LinkYaar</text>
+        font-size="96" fill="#254433">LinkYaar</text>
       <text x="600" y="545" text-anchor="middle"
         font-family="Segoe UI, Arial, sans-serif" font-weight="600"
-        font-size="34" fill="#2E1065" opacity="0.75">Everything you are. One beautiful link.</text>
+        font-size="34" fill="#254433" opacity="0.8">Everything you are. One beautiful link.</text>
     </svg>`)
 
   await sharp({
-    create: { width: 1200, height: 630, channels: 3, background: '#D7F226' },
+    create: { width: 1200, height: 630, channels: 3, background: '#F5EBD3' },
   })
     .composite([
       { input: glyph, top: 70, left: 450 },

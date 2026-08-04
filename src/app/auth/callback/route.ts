@@ -2,7 +2,9 @@
 // Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
 
 import { NextResponse } from 'next/server'
+import { after } from 'next/server'
 
+import { sendWelcomeEmail } from '@/features/notifications/send'
 import { createClient } from '@/lib/supabase/server'
 
 /**
@@ -27,9 +29,20 @@ export async function GET(request: Request) {
       if (user) {
         const { data: profile } = await supabase
           .from('profiles')
-          .select('username')
+          .select('username, display_name')
           .eq('id', user.id)
           .maybeSingle()
+
+        // First arrival: account created in the last 15 minutes and no
+        // username claimed yet → greet them once.
+        const isNew =
+          !profile?.username &&
+          Date.now() - new Date(user.created_at).getTime() < 15 * 60 * 1000
+        if (isNew && user.email) {
+          const email = user.email
+          const displayName = profile?.display_name
+          after(() => sendWelcomeEmail(email, displayName))
+        }
 
         const destination = profile?.username ? next : '/onboarding'
         return NextResponse.redirect(`${origin}${destination}`)

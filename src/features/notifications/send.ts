@@ -29,6 +29,23 @@ async function getOwnerEmail(profileId: string): Promise<string | null> {
   }
 }
 
+export async function sendWelcomeEmail(to: string, name?: string | null) {
+  await sendEmail({
+    to,
+    subject: 'Welcome to LinkYaar 🎉',
+    html: emailTemplate({
+      heading: `Welcome${name ? `, ${name}` : ''}!`,
+      body: `<p>Your corner of the internet is ready. Three quick wins:</p>
+        <p>1️⃣ <strong>Claim your username</strong> — it becomes your public address.<br/>
+        2️⃣ <strong>Add your first links</strong> and drag them into order.<br/>
+        3️⃣ <strong>Pick a theme</strong> in the Studio — 27 to choose from, all free.</p>
+        <p>Questions? Just reply to this email — a human reads it.</p>`,
+      ctaLabel: 'Open your dashboard',
+      ctaUrl: `${siteConfig.url}/dashboard`,
+    }),
+  })
+}
+
 export async function notifyNewSubscriber(profileId: string, subscriberEmail: string) {
   const to = await getOwnerEmail(profileId)
   if (!to) return

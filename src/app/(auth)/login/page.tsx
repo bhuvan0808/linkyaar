@@ -18,11 +18,18 @@ export default function LoginPage() {
       {/* Art panel */}
       <aside className="relative hidden overflow-hidden bg-brand-ink lg:block">
         <div className="relative flex h-full flex-col justify-between p-12">
-          <Link
-            href="/"
-            className="font-display text-xl font-black tracking-tight text-white"
-          >
-            LinkYaar<span className="text-brand-cream">*</span>
+          <Link href="/" className="flex items-center gap-2" aria-label="LinkYaar home">
+            {/* eslint-disable-next-line @next/next/no-img-element -- brand glyph */}
+            <img
+              src="/brand/glyph-white.png"
+              alt=""
+              width={26}
+              height={26}
+              className="h-6.5 w-auto"
+            />
+            <span className="font-display text-xl font-black tracking-tight text-white">
+              LinkYaar
+            </span>
           </Link>
           <blockquote className="max-w-md">
             <p className="font-display text-4xl leading-tight font-black text-balance text-brand-cream">
@@ -43,9 +50,20 @@ export default function LoginPage() {
         <div className="w-full max-w-sm">
           <Link
             href="/"
-            className="mb-8 inline-block text-lg font-semibold tracking-tight lg:hidden"
+            className="mb-8 inline-flex items-center gap-2 lg:hidden"
+            aria-label="LinkYaar home"
           >
-            Link<span className="text-accent">Yaar</span>
+            {/* eslint-disable-next-line @next/next/no-img-element -- brand glyph */}
+            <img
+              src="/brand/glyph-ink.png"
+              alt=""
+              width={24}
+              height={24}
+              className="h-6 w-auto"
+            />
+            <span className="font-display text-lg font-black tracking-tight text-primary">
+              LinkYaar
+            </span>
           </Link>
           <h1 className="text-2xl font-semibold tracking-tight">Welcome</h1>
           <p className="mt-1.5 mb-8 text-[15px] text-muted-foreground">
