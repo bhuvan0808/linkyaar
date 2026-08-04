@@ -85,26 +85,22 @@ export function Hero() {
   return (
     <section className="overflow-hidden bg-brand-lime">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 pt-40 pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-8 lg:pt-48 lg:pb-32">
+        {/* Brand + purpose stay statically visible — never hidden by
+            entry animations, so crawlers and reviewers always see them. */}
         <div className="max-w-2xl">
-          <motion.h1
-            initial={reduce ? false : { opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: EASE }}
-            className="font-display text-5xl leading-[0.98] font-black tracking-tight text-balance text-brand-ink sm:text-7xl lg:text-[5.5rem]"
-          >
-            Everything you are. One beautiful link.
-          </motion.h1>
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/60 px-4 py-1.5 text-sm font-bold text-brand-ink/80">
+            LinkYaar · free &amp; open-source link in bio
+          </p>
 
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
-            className="mt-7 max-w-lg text-lg font-medium text-pretty text-brand-ink/80 sm:text-xl"
-          >
+          <h1 className="font-display text-5xl leading-[0.98] font-black tracking-tight text-balance text-brand-ink sm:text-7xl lg:text-[5.5rem]">
+            Everything you are. One beautiful link.
+          </h1>
+
+          <p className="mt-7 max-w-lg text-lg font-medium text-pretty text-brand-ink/80 sm:text-xl">
             LinkYaar is a free, open-source link-in-bio tool. Create one page for all your
             links, socials, and work — sign in with email or Google, share one link
             everywhere, and see who visits.
-          </motion.p>
+          </p>
 
           <motion.form
             onSubmit={claim}

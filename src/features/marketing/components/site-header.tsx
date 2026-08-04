@@ -26,9 +26,10 @@ function formatStars(count: number): string {
 export function SiteHeader({ stars }: { stars: number | null }) {
   return (
     <motion.header
-      initial={{ opacity: 0, y: -12 }}
+      // No hidden initial state: the brand name must be visible even
+      // before hydration (crawlers, OAuth verification checks).
+      initial={false}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
       className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5"
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between rounded-full bg-white py-2.5 pr-2.5 pl-5 shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
