@@ -98,6 +98,31 @@ We'd love your help — read [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
 All commits follow [Conventional Commits](https://www.conventionalcommits.org);
 hooks enforce lint, format, and message style automatically.
 
+## Self-hosting
+
+LinkYaar is fully self-hostable — the [Quick Start](#quick-start) above is the
+complete recipe: a free Supabase project, a Vercel deployment (or any Node
+host), and the SQL in `supabase/migrations/`. No license keys, no phone-home,
+no feature gates.
+
 ## License
 
-[MIT](LICENSE)
+LinkYaar is licensed under the **GNU Affero General Public License v3.0**
+([AGPL-3.0-or-later](LICENSE)).
+
+**What that means in practice:**
+
+- ✅ Use it, self-host it, modify it, and even charge money for hosting it —
+  freely and forever.
+- 🔁 If you run a **modified** version as a public service, you must make your
+  modified source code available to its users under the same license.
+- 🧾 Keep license and copyright notices intact; new source files carry an
+  `SPDX-License-Identifier: AGPL-3.0-or-later` header (CI enforces this —
+  run `pnpm license:fix` to add headers automatically).
+
+**For contributors:** by submitting a pull request you agree that your
+contribution is licensed under AGPL-3.0-or-later. See
+[docs/LICENSING.md](docs/LICENSING.md) for the full explanation of what AGPL
+means for users, self-hosters, and contributors.
+
+Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors.

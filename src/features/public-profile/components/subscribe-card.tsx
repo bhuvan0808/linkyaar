@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 'use client'
 
 import { Check, Loader2, Mail } from 'lucide-react'

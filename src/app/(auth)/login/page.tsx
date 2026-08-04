@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { type Metadata } from 'next'
 import Link from 'next/link'
 import { Suspense } from 'react'
@@ -30,7 +33,7 @@ export default function LoginPage() {
             </footer>
           </blockquote>
           <p className="text-xs font-medium text-white/40">
-            Open source · MIT · no lock-in
+            Open source · AGPL-3.0 · no lock-in
           </p>
         </div>
       </aside>

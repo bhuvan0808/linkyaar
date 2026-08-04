@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { type Metadata } from 'next'
 
 import { ProsePage } from '@/features/marketing/components/prose-page'
@@ -18,8 +21,8 @@ export default function TermsPage() {
       <h2>1. The service</h2>
       <p>
         LinkYaar lets you create a public profile page that gathers your links, social
-        accounts, and information in one place. The software is open source under the MIT
-        license; this hosted instance is operated by the LinkYaar maintainers.
+        accounts, and information in one place. The software is open source under the
+        AGPL-3.0 license; this hosted instance is operated by the LinkYaar maintainers.
       </p>
 
       <h2>2. Your account</h2>
@@ -62,8 +65,8 @@ export default function TermsPage() {
       <h2>6. No warranty</h2>
       <p>
         LinkYaar is provided “as is”, without warranty of any kind, as described in the
-        MIT license. We work hard to keep it fast and available, but we do not guarantee
-        uninterrupted service.
+        AGPL-3.0 license. We work hard to keep it fast and available, but we do not
+        guarantee uninterrupted service.
       </p>
 
       <h2>7. Changes</h2>

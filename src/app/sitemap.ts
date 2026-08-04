@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { type MetadataRoute } from 'next'
 
 import { createClient } from '@/lib/supabase/server'
@@ -8,7 +11,19 @@ export const revalidate = 3600
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [
     { url: siteConfig.url, changeFrequency: 'weekly', priority: 1 },
-    ...['/about', '/help', '/terms', '/privacy', '/cookies'].map((path) => ({
+    ...[
+      '/about',
+      '/help',
+      '/terms',
+      '/privacy',
+      '/cookies',
+      '/roadmap',
+      '/changelog',
+      '/contribute',
+      '/conduct',
+      '/security',
+      '/license',
+    ].map((path) => ({
       url: `${siteConfig.url}${path}`,
       changeFrequency: 'monthly' as const,
       priority: 0.4,

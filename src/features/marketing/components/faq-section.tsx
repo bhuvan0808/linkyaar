@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import Link from 'next/link'
 
 import { FadeIn } from '@/components/shared/fade-in'
@@ -5,7 +8,7 @@ import { FadeIn } from '@/components/shared/fade-in'
 const faqs = [
   {
     q: 'Is LinkYaar really free?',
-    a: 'Yes — every feature that exists is free. LinkYaar is MIT-licensed open source: no paywalls, no watermark-removal fees, no locked analytics. You can even self-host it.',
+    a: 'Yes — every feature that exists is free. LinkYaar is AGPL-licensed open source: no paywalls, no watermark-removal fees, no locked analytics. You can even self-host it.',
   },
   {
     q: 'How is this different from Linktree?',

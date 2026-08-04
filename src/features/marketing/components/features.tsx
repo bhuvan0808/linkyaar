@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { GripVertical, Link2, QrCode, Search, Unlock } from 'lucide-react'
 
 import { FadeIn } from '@/components/shared/fade-in'
@@ -93,7 +96,7 @@ export function Features() {
                 Open source. No ransom. Ever.
               </h3>
               <p className="mt-4 max-w-md text-lg font-medium text-white/70">
-                MIT licensed. Self-host it, fork it, audit every line. Your audience is
+                AGPL licensed. Self-host it, fork it, audit every line. Your audience is
                 yours — export everything with one click.
               </p>
             </article>

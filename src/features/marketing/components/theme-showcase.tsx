@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { FadeIn } from '@/components/shared/fade-in'
 import { createClient } from '@/lib/supabase/server'
 import { parseThemeTokens } from '@/features/themes/tokens'

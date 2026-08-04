@@ -31,6 +31,9 @@ jobs:
       - name: Lint
         run: pnpm lint
 
+      - name: License headers (SPDX)
+        run: pnpm license:check
+
       - name: Typecheck
         run: pnpm typecheck
 

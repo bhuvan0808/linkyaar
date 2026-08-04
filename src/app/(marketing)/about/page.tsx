@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { type Metadata } from 'next'
 
 import { ProsePage } from '@/features/marketing/components/prose-page'
@@ -25,7 +28,9 @@ export default function AboutPage() {
       <h2>Principles</h2>
       <ul>
         <li>
-          <strong>Open source, MIT.</strong> Read it, fork it, self-host it. No asterisks.
+          <strong>Open source, AGPL-3.0.</strong> Read it, fork it, self-host it. Anyone
+          who runs a modified version publicly must share their changes back — the
+          community always benefits.
         </li>
         <li>
           <strong>Design is a feature.</strong> Every theme, easing curve, and pixel of

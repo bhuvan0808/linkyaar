@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { SiteFooter } from '@/features/marketing/components/site-footer'
 import { SiteHeader } from '@/features/marketing/components/site-header'
 

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 /**
  * Regenerates all brand assets from the raw exports in public/brand/.
  * The raw logo exports have baked-in gray/glow backgrounds, so we

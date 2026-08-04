@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import Link from 'next/link'
 
 import { siteConfig } from '@/config/site'
@@ -10,16 +13,8 @@ const columns: {
     heading: 'Company',
     links: [
       { label: 'About', href: '/about' },
-      {
-        label: 'Roadmap',
-        href: `${siteConfig.links.github}/blob/main/ROADMAP.md`,
-        external: true,
-      },
-      {
-        label: "What's new",
-        href: `${siteConfig.links.github}/blob/main/CHANGELOG.md`,
-        external: true,
-      },
+      { label: 'Roadmap', href: '/roadmap' },
+      { label: "What's new", href: '/changelog' },
       { label: 'GitHub', href: siteConfig.links.github, external: true },
     ],
   },
@@ -31,16 +26,8 @@ const columns: {
         href: `${siteConfig.links.github}/discussions`,
         external: true,
       },
-      {
-        label: 'Contribute',
-        href: `${siteConfig.links.github}/blob/main/CONTRIBUTING.md`,
-        external: true,
-      },
-      {
-        label: 'Code of Conduct',
-        href: `${siteConfig.links.github}/blob/main/CODE_OF_CONDUCT.md`,
-        external: true,
-      },
+      { label: 'Contribute', href: '/contribute' },
+      { label: 'Code of Conduct', href: '/conduct' },
       {
         label: 'Report a violation',
         href: `${siteConfig.links.github}/issues/new/choose`,
@@ -58,11 +45,7 @@ const columns: {
         href: `${siteConfig.links.github}/issues`,
         external: true,
       },
-      {
-        label: 'Security policy',
-        href: `${siteConfig.links.github}/blob/main/SECURITY.md`,
-        external: true,
-      },
+      { label: 'Security', href: '/security' },
     ],
   },
   {
@@ -71,11 +54,7 @@ const columns: {
       { label: 'Terms & Conditions', href: '/terms' },
       { label: 'Privacy Notice', href: '/privacy' },
       { label: 'Cookie Notice', href: '/cookies' },
-      {
-        label: 'License (MIT)',
-        href: `${siteConfig.links.github}/blob/main/LICENSE`,
-        external: true,
-      },
+      { label: 'License (AGPL-3.0)', href: '/license' },
     ],
   },
 ]
@@ -129,7 +108,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-col gap-3 text-sm font-medium text-white/45 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 LinkYaar contributors · MIT licensed · open source forever</p>
+          <p>© 2026 LinkYaar contributors · AGPL-3.0 licensed · open source forever</p>
           <Link
             href="/login?mode=signup"
             className="transition-colors duration-200 hover:text-white"

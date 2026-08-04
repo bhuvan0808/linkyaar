@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { AnalyticsSection } from '@/features/marketing/components/analytics-section'
 import { Cta } from '@/features/marketing/components/cta'
 import { FaqSection } from '@/features/marketing/components/faq-section'

@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 /**
  * Thin Resend sender. Fails soft by design: email is a courtesy,
  * never a dependency — a failed send must not break any user flow.

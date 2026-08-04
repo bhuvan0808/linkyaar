@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "description": "Everything you are. One beautiful link. Open-source creator profile platform.",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "engines": {
     "node": ">=20"
   },
@@ -17,6 +17,8 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "license:check": "node scripts/license-headers.cjs --check",
+    "license:fix": "node scripts/license-headers.cjs",
     "prepare": "husky"
   },
   "dependencies": {

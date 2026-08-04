@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+// Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
+
 import { type Metadata } from 'next'
 
 import { ProsePage } from '@/features/marketing/components/prose-page'
@@ -15,7 +18,7 @@ const faqs = [
   },
   {
     q: 'Is LinkYaar really free?',
-    a: 'Yes. The software is MIT-licensed open source. Every feature that exists today is free — there is no paywall, no branding-removal fee, no locked analytics.',
+    a: 'Yes. The software is AGPL-licensed open source. Every feature that exists today is free — there is no paywall, no branding-removal fee, no locked analytics.',
   },
   {
     q: 'How do I reorder my links?',
