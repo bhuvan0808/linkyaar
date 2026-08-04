@@ -98,7 +98,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
     else if (result.text) {
       form.setValue(kind, result.text, { shouldDirty: true })
       toast.success(
-        `${kind === 'bio' ? 'Bio' : 'Headline'} drafted — edit to taste (10 AI drafts/day)`
+        `${kind === 'bio' ? 'Bio' : 'Headline'} drafted — edit to taste (25 AI drafts/day)`
       )
     }
   }

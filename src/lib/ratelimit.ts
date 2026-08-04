@@ -35,11 +35,11 @@ export const limiters = {
   review: makeLimiter(3, '10 m'), // per ip+profile
   reviewIp: makeLimiter(10, '1 h'), // per ip across all profiles
   feedback: makeLimiter(5, '1 h'), // per user
-  click: makeLimiter(60, '1 m'), // per ip (log-skip only)
-  view: makeLimiter(30, '1 m'), // per ip (log-skip only)
-  aiUser: makeLimiter(10, '1 d'), // per user per day
-  aiBurst: makeLimiter(3, '1 m'), // per user burst
-  aiGlobal: makeLimiter(300, '1 d'), // whole platform per day
+  click: makeLimiter(120, '1 m'), // per ip (log-skip only; generous for shared NAT ips)
+  view: makeLimiter(60, '1 m'), // per ip (log-skip only)
+  aiUser: makeLimiter(25, '1 d'), // per user per day
+  aiBurst: makeLimiter(5, '1 m'), // per user burst
+  aiGlobal: makeLimiter(1000, '1 d'), // whole platform per day (<7% of provider capacity)
 }
 
 export type LimiterName = keyof typeof limiters

@@ -43,7 +43,7 @@ export async function aiWrite(
   }
   if (!(await allow('aiUser', user.id))) {
     return {
-      error: `${LIMIT_PREFIX}You have used all 10 free AI drafts for today — they reset at midnight UTC.`,
+      error: `${LIMIT_PREFIX}You have used all 25 free AI drafts for today — they reset at midnight UTC.`,
     }
   }
   if (!(await allow('aiGlobal', 'all'))) {
