@@ -13,6 +13,13 @@ import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { aiWrite } from '@/features/ai/actions'
 import { LIMIT_PREFIX } from '@/features/ai/shared'
@@ -28,9 +35,22 @@ const formSchema = z.object({
   pronouns: z.string().trim().max(30, 'Max 30 characters').optional(),
 })
 
+const PRONOUN_PRESETS = [
+  'she/her',
+  'he/him',
+  'they/them',
+  'she/they',
+  'he/they',
+  'prefer not to say',
+]
+
 export function ProfileForm({ profile }: { profile: Profile }) {
   const [saving, setSaving] = useState(false)
   const [aiBusy, setAiBusy] = useState<'bio' | 'headline' | null>(null)
+  const [pronounSel, setPronounSel] = useState<string>(() => {
+    if (!profile.pronouns) return 'none'
+    return PRONOUN_PRESETS.includes(profile.pronouns) ? profile.pronouns : 'custom'
+  })
 
   function handleAiError(message: string) {
     if (message.startsWith(LIMIT_PREFIX)) {
@@ -49,6 +69,20 @@ export function ProfileForm({ profile }: { profile: Profile }) {
   }
 
   async function runAi(kind: 'bio' | 'headline') {
+    // The AI needs at least a hint about who this person is.
+    const hasContext = Boolean(
+      form.getValues('occupation')?.trim() ||
+      form.getValues('headline')?.trim() ||
+      form.getValues('bio')?.trim()
+    )
+    if (!hasContext) {
+      toast.info('Give the AI something to work with first', {
+        description:
+          'Fill in your occupation, or type a few rough words in the bio or headline (e.g. "travel vlogger, budget trips, India") — then hit Write with AI.',
+        duration: 8000,
+      })
+      return
+    }
     setAiBusy(kind)
     const result = await aiWrite({
       kind,
@@ -107,7 +141,37 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         </div>
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="pf-pronouns">Pronouns</Label>
-          <Input id="pf-pronouns" placeholder="she/her" {...form.register('pronouns')} />
+          <Select
+            value={pronounSel}
+            onValueChange={(v) => {
+              setPronounSel(v)
+              if (v === 'custom' || v === 'none') {
+                form.setValue('pronouns', '', { shouldDirty: true })
+              } else {
+                form.setValue('pronouns', v, { shouldDirty: true })
+              }
+            }}
+          >
+            <SelectTrigger id="pf-pronouns" className="w-full">
+              <SelectValue placeholder="Select pronouns" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">Not shown</SelectItem>
+              {PRONOUN_PRESETS.map((p) => (
+                <SelectItem key={p} value={p}>
+                  {p}
+                </SelectItem>
+              ))}
+              <SelectItem value="custom">Write custom…</SelectItem>
+            </SelectContent>
+          </Select>
+          {pronounSel === 'custom' && (
+            <Input
+              placeholder="your pronouns"
+              maxLength={30}
+              {...form.register('pronouns')}
+            />
+          )}
         </div>
       </div>
 

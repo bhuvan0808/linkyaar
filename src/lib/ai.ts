@@ -76,7 +76,13 @@ export async function generateText(prompt: string): Promise<string | null> {
     (await tryOpenAiCompatible(
       'https://openrouter.ai/api/v1/chat/completions',
       process.env.OPENROUTER_API_KEY,
-      'meta-llama/llama-3.1-8b-instruct:free',
+      'openai/gpt-oss-20b:free',
+      prompt
+    )) ??
+    (await tryOpenAiCompatible(
+      'https://openrouter.ai/api/v1/chat/completions',
+      process.env.OPENROUTER_API_KEY,
+      'nvidia/nemotron-nano-9b-v2:free',
       prompt
     ))
   )

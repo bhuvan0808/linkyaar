@@ -3,20 +3,13 @@
 
 'use client'
 
-import { Loader2, Plus, Trash2 } from 'lucide-react'
+import { Loader2, X } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 import { BrandIcon } from '@/components/shared/brand-icon'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import { saveSocials } from '@/features/profile/actions'
 import { PLATFORMS, PLATFORM_MAP } from '@/features/socials/platforms'
 import { type SocialLink } from '@/types/database'
@@ -26,33 +19,33 @@ interface Row {
   url: string
 }
 
+/**
+ * All platforms visible as an icon grid — tap to add, fill the URL.
+ * No hunting through dropdowns.
+ */
 export function SocialsEditor({ socials }: { socials: SocialLink[] }) {
   const [rows, setRows] = useState<Row[]>(
     socials.map((s) => ({ platform: s.platform, url: s.url }))
   )
   const [saving, setSaving] = useState(false)
 
-  const usedPlatforms = new Set(rows.map((r) => r.platform))
-  const available = PLATFORMS.filter((p) => !usedPlatforms.has(p.key))
+  const active = new Set(rows.map((r) => r.platform))
 
-  function addRow() {
-    const first = available[0]
-    if (!first) return
-    setRows([...rows, { platform: first.key, url: '' }])
+  function toggle(platformKey: string) {
+    if (active.has(platformKey)) {
+      setRows(rows.filter((r) => r.platform !== platformKey))
+    } else {
+      setRows([...rows, { platform: platformKey, url: '' }])
+    }
   }
 
-  function updateRow(index: number, patch: Partial<Row>) {
-    setRows(rows.map((row, i) => (i === index ? { ...row, ...patch } : row)))
-  }
-
-  function removeRow(index: number) {
-    setRows(rows.filter((_, i) => i !== index))
+  function setUrl(platformKey: string, url: string) {
+    setRows(rows.map((r) => (r.platform === platformKey ? { ...r, url } : r)))
   }
 
   async function handleSave() {
-    const incomplete = rows.some((r) => !r.url.trim())
-    if (incomplete) {
-      toast.error('Fill in every URL or remove the empty rows.')
+    if (rows.some((r) => !r.url.trim())) {
+      toast.error('Fill in every URL, or tap the icon again to remove it.')
       return
     }
     setSaving(true)
@@ -63,79 +56,78 @@ export function SocialsEditor({ socials }: { socials: SocialLink[] }) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-5">
+      {/* Platform grid — everything visible at once */}
+      <div className="flex flex-wrap gap-2" role="group" aria-label="Choose platforms">
+        {PLATFORMS.map((p) => {
+          const on = active.has(p.key)
+          return (
+            <button
+              key={p.key}
+              type="button"
+              onClick={() => toggle(p.key)}
+              aria-pressed={on}
+              title={p.label}
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-2 text-xs font-semibold transition-all duration-150 hover:-translate-y-0.5 ${
+                on
+                  ? 'border-accent bg-accent text-accent-foreground shadow-[var(--shadow-soft)]'
+                  : 'border-border text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              <BrandIcon path={p.path} className="size-3.5" />
+              {p.label}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* URL inputs for the selected platforms */}
+      {rows.length > 0 && (
+        <div className="flex flex-col gap-2.5">
+          {rows.map((row) => {
+            const def = PLATFORM_MAP.get(row.platform)
+            if (!def) return null
+            return (
+              <div key={row.platform} className="flex items-center gap-2">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-secondary text-secondary-foreground">
+                  <BrandIcon path={def.path} className="size-4" />
+                </span>
+                <Input
+                  value={row.url}
+                  onChange={(e) => setUrl(row.platform, e.target.value)}
+                  placeholder={def.placeholder}
+                  inputMode="url"
+                  aria-label={`${def.label} URL`}
+                />
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={() => toggle(row.platform)}
+                  aria-label={`Remove ${def.label}`}
+                >
+                  <X className="size-4 text-muted-foreground" aria-hidden />
+                </Button>
+              </div>
+            )
+          })}
+        </div>
+      )}
+
       {rows.length === 0 && (
         <p className="text-sm text-muted-foreground">
-          No socials yet — add the places people can find you.
+          Tap the platforms where people can find you — then paste your links.
         </p>
       )}
 
-      {rows.map((row, index) => {
-        const def = PLATFORM_MAP.get(row.platform)
-        return (
-          <div key={row.platform} className="flex items-center gap-2">
-            <Select
-              value={row.platform}
-              onValueChange={(v) => updateRow(index, { platform: v })}
-            >
-              <SelectTrigger
-                className="w-40 shrink-0"
-                aria-label={`Platform for row ${index + 1}`}
-              >
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {PLATFORMS.filter(
-                  (p) => p.key === row.platform || !usedPlatforms.has(p.key)
-                ).map((p) => (
-                  <SelectItem key={p.key} value={p.key}>
-                    <span className="flex items-center gap-2">
-                      <BrandIcon path={p.path} className="size-3.5" />
-                      {p.label}
-                    </span>
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Input
-              value={row.url}
-              onChange={(e) => updateRow(index, { url: e.target.value })}
-              placeholder={def?.placeholder ?? 'https://…'}
-              inputMode="url"
-              aria-label={`${def?.label ?? row.platform} URL`}
-            />
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              onClick={() => removeRow(index)}
-              aria-label={`Remove ${def?.label ?? row.platform}`}
-            >
-              <Trash2 className="size-4 text-muted-foreground" aria-hidden />
-            </Button>
-          </div>
-        )
-      })}
-
-      <div className="mt-1 flex items-center gap-2">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={addRow}
-          disabled={available.length === 0}
-          className="rounded-xl"
-        >
-          <Plus aria-hidden /> Add social
-        </Button>
-        <Button
-          size="sm"
-          onClick={handleSave}
-          disabled={saving}
-          className="rounded-xl bg-accent text-accent-foreground hover:bg-accent/90"
-        >
-          {saving && <Loader2 className="animate-spin" aria-hidden />}
-          Save socials
-        </Button>
-      </div>
+      <Button
+        size="sm"
+        onClick={handleSave}
+        disabled={saving}
+        className="self-start rounded-xl bg-accent text-accent-foreground hover:bg-accent/90"
+      >
+        {saving && <Loader2 className="animate-spin" aria-hidden />}
+        Save socials
+      </Button>
     </div>
   )
 }

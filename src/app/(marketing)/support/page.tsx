@@ -59,6 +59,16 @@ export default function SupportPage() {
           </p>
         ) : null}
 
+        <p className="mt-8 text-sm font-medium text-brand-ink/70">
+          International donations, sponsorships, or investor conversations:{' '}
+          <a
+            href="mailto:help@linkyaar.com"
+            className="font-bold text-brand-red underline underline-offset-4"
+          >
+            help@linkyaar.com
+          </a>
+        </p>
+
         <div className="mt-14 border-t border-brand-ink/10 pt-10">
           <p className="font-display text-xl font-black text-brand-ink">
             Can&apos;t donate? You can still help.
