@@ -12,6 +12,7 @@ import { ReviewsBlock } from '@/features/public-profile/components/reviews-block
 import { SocialsRow } from '@/features/public-profile/components/socials-row'
 import { SubscribeCard } from '@/features/public-profile/components/subscribe-card'
 import { THEME_FONTS } from '@/features/themes/fonts'
+import { allow } from '@/lib/ratelimit'
 import { createAnonClient } from '@/lib/supabase/anon'
 import { parseUserAgent } from '@/lib/ua'
 import { siteConfig } from '@/config/site'
@@ -68,7 +69,13 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
     const referrer = headerList.get('referer')
     const country = headerList.get('x-vercel-ip-country')
     const ua = parseUserAgent(headerList.get('user-agent'))
+    const viewIp =
+      headerList.get('x-real-ip') ??
+      headerList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
+      'unknown'
     after(async () => {
+      // 30 logged views/min/ip — page always renders, only logging skips.
+      if (!(await allow('view', viewIp))) return
       const supabase = createAnonClient()
       await supabase.from('profile_views').insert({
         profile_id: profile.id,

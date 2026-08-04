@@ -8,8 +8,11 @@ import { after } from 'next/server'
 import { z } from 'zod'
 
 import { notifyNewReview, notifyNewSubscriber } from '@/features/notifications/send'
+import { allow, clientIp } from '@/lib/ratelimit'
 import { createAnonClient } from '@/lib/supabase/anon'
 import { createClient } from '@/lib/supabase/server'
+
+const SLOW_DOWN = { error: 'Too many requests — please try again in a few minutes.' }
 
 type ActionResult = { error?: string }
 
@@ -32,6 +35,15 @@ export async function subscribe(input: {
     // Silently accept honeypot hits so bots learn nothing.
     if (input.website) return {}
     return { error: parsed.error.issues[0]?.message }
+  }
+
+  // 5/10min per visitor+profile, 20/hour per visitor overall.
+  const ip = await clientIp()
+  if (
+    !(await allow('subscribe', `${ip}:${parsed.data.profileId}`)) ||
+    !(await allow('subscribeIp', ip))
+  ) {
+    return SLOW_DOWN
   }
 
   const supabase = createAnonClient()
@@ -71,6 +83,15 @@ export async function submitReview(input: {
   if (!parsed.success) {
     if (input.website) return {}
     return { error: parsed.error.issues[0]?.message }
+  }
+
+  // 3/10min per visitor+profile, 10/hour per visitor overall.
+  const ip = await clientIp()
+  if (
+    !(await allow('review', `${ip}:${parsed.data.profileId}`)) ||
+    !(await allow('reviewIp', ip))
+  ) {
+    return SLOW_DOWN
   }
 
   const supabase = createAnonClient()

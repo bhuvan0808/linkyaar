@@ -4,7 +4,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Loader2 } from 'lucide-react'
+import { Loader2, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { generateBio } from '@/features/ai/actions'
 import { updateProfile, type ProfileFormValues } from '@/features/profile/actions'
 import { type Profile } from '@/types/database'
 
@@ -28,6 +29,7 @@ const formSchema = z.object({
 
 export function ProfileForm({ profile }: { profile: Profile }) {
   const [saving, setSaving] = useState(false)
+  const [aiBusy, setAiBusy] = useState(false)
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(formSchema),
@@ -84,7 +86,37 @@ export function ProfileForm({ profile }: { profile: Profile }) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="pf-bio">Bio</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="pf-bio">Bio</Label>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            disabled={aiBusy}
+            className="h-7 gap-1.5 px-2 text-xs font-semibold text-accent"
+            onClick={async () => {
+              setAiBusy(true)
+              const result = await generateBio({
+                name: form.getValues('display_name'),
+                occupation: form.getValues('occupation'),
+                vibe: form.getValues('headline') || form.getValues('bio'),
+              })
+              setAiBusy(false)
+              if (result.error) toast.error(result.error)
+              else if (result.bio) {
+                form.setValue('bio', result.bio, { shouldDirty: true })
+                toast.success('Bio drafted — edit to taste (5 AI uses/day)')
+              }
+            }}
+          >
+            {aiBusy ? (
+              <Loader2 className="size-3.5 animate-spin" aria-hidden />
+            ) : (
+              <Sparkles className="size-3.5" aria-hidden />
+            )}
+            Write with AI
+          </Button>
+        </div>
         <Textarea
           id="pf-bio"
           rows={3}

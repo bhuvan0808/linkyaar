@@ -6,6 +6,7 @@
 import { z } from 'zod'
 
 import { emailTemplate, sendEmail } from '@/lib/email'
+import { allow, clientIp } from '@/lib/ratelimit'
 import { createClient } from '@/lib/supabase/server'
 
 const schema = z
@@ -23,6 +24,11 @@ export async function sendFeedback(message: string): Promise<{ error?: string }>
   const {
     data: { user },
   } = await supabase.auth.getUser()
+
+  // 5 feedback emails per hour per user (or per IP if signed out).
+  if (!(await allow('feedback', user?.id ?? (await clientIp())))) {
+    return { error: 'Too many messages — try again in an hour.' }
+  }
 
   const ok = await sendEmail({
     to: 'support@linkyaar.com',
