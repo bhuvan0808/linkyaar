@@ -20,7 +20,7 @@ function HeroCollage() {
     <div className="relative mx-auto w-full max-w-105" aria-hidden>
       {/* Profile card */}
       <div className="relative z-10 rotate-[-2deg] rounded-[2rem] bg-brand-ink p-7 shadow-[0_24px_60px_rgba(0,0,0,0.18)]">
-        <div className="flex size-16 items-center justify-center rounded-full bg-brand-lilac text-2xl">
+        <div className="flex size-16 items-center justify-center rounded-full bg-brand-sage text-2xl">
           🎨
         </div>
         <p className="mt-4 font-display text-2xl font-black text-white">maya draws</p>
@@ -36,7 +36,7 @@ function HeroCollage() {
           ))}
         </div>
         <div className="mt-5 flex flex-col gap-2.5">
-          <div className="flex items-center gap-2.5 rounded-full bg-brand-lime px-5 py-3.5 text-sm font-bold text-brand-ink">
+          <div className="flex items-center gap-2.5 rounded-full bg-brand-cream px-5 py-3.5 text-sm font-bold text-brand-ink">
             <Link2 className="size-4" /> new print drop 🔥
           </div>
           <div className="flex items-center gap-2.5 rounded-full bg-white px-5 py-3.5 text-sm font-bold text-brand-ink">
@@ -49,21 +49,21 @@ function HeroCollage() {
       </div>
 
       {/* Stats tile */}
-      <div className="absolute top-6 -right-4 z-20 hidden rotate-3 rounded-3xl bg-brand-blush px-6 py-5 text-brand-ink shadow-[0_16px_40px_rgba(0,0,0,0.14)] sm:block">
+      <div className="absolute top-6 -right-4 z-20 hidden rotate-3 rounded-3xl bg-brand-peach px-6 py-5 text-brand-ink shadow-[0_16px_40px_rgba(0,0,0,0.14)] sm:block">
         <BarChart3 className="size-5" />
         <p className="mt-2 font-display text-3xl leading-none font-black">12,480</p>
         <p className="mt-1 text-xs font-semibold opacity-70">views this week</p>
       </div>
 
       {/* QR tile */}
-      <div className="absolute bottom-24 -left-6 z-20 hidden -rotate-6 rounded-3xl bg-brand-lilac px-5 py-4 text-brand-ink shadow-[0_16px_40px_rgba(0,0,0,0.14)] sm:block">
+      <div className="absolute bottom-24 -left-6 z-20 hidden -rotate-6 rounded-3xl bg-brand-sage px-5 py-4 text-brand-ink shadow-[0_16px_40px_rgba(0,0,0,0.14)] sm:block">
         <QrCode className="size-8" />
         <p className="mt-1.5 text-xs font-bold">scan me</p>
       </div>
 
       {/* Follower tile */}
       <div className="absolute right-8 -bottom-5 z-20 hidden rotate-2 rounded-3xl bg-white px-5 py-4 shadow-[0_16px_40px_rgba(0,0,0,0.14)] sm:flex sm:items-center sm:gap-2.5">
-        <Heart className="size-5 fill-current text-brand-violet" />
+        <Heart className="size-5 fill-current text-brand-red" />
         <p className="text-sm font-bold text-brand-ink">+214 clicks today</p>
       </div>
     </div>
@@ -83,7 +83,7 @@ export function Hero() {
   }
 
   return (
-    <section className="overflow-hidden bg-brand-lime">
+    <section className="overflow-hidden bg-brand-cream">
       <div className="mx-auto grid max-w-7xl gap-16 px-6 pt-40 pb-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-8 lg:pt-48 lg:pb-32">
         {/* Brand + purpose stay statically visible — never hidden by
             entry animations, so crawlers and reviewers always see them. */}

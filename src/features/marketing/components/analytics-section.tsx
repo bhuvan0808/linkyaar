@@ -26,13 +26,13 @@ export function AnalyticsSection() {
                 {[35, 55, 40, 70, 52, 80, 64, 92, 75, 100, 88, 96].map((h, i) => (
                   <div
                     key={i}
-                    className="flex-1 rounded-t bg-brand-lime"
+                    className="flex-1 rounded-t bg-brand-cream"
                     style={{ height: `${h}%` }}
                   />
                 ))}
               </div>
             </div>
-            <div className="rounded-[2rem] bg-brand-violet p-6 text-white">
+            <div className="rounded-[2rem] bg-brand-red p-6 text-white">
               <MousePointerClick className="size-5" aria-hidden />
               <p className="mt-2 font-display text-4xl font-black">2,362</p>
               <p className="mt-1 text-sm font-semibold text-white/70">link clicks</p>
@@ -55,7 +55,7 @@ export function AnalyticsSection() {
           </p>
           <Button
             asChild
-            className="mt-9 h-14 rounded-full bg-brand-lilac px-8 text-base font-bold text-brand-ink transition-transform duration-300 hover:scale-[1.02] hover:bg-brand-lilac/85"
+            className="mt-9 h-14 rounded-full bg-brand-sage px-8 text-base font-bold text-brand-ink transition-transform duration-300 hover:scale-[1.02] hover:bg-brand-sage/85"
           >
             <Link href="/login?mode=signup">Get started for free</Link>
           </Button>

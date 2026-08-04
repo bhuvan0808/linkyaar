@@ -29,6 +29,8 @@ export interface Database {
           cover_url: string | null
           subscribe_enabled: boolean
           reviews_enabled: boolean
+          custom_theme: Json | null
+          header_layout: string
           created_at: string
           updated_at: string
         }
@@ -47,6 +49,8 @@ export interface Database {
           cover_url?: string | null
           subscribe_enabled?: boolean
           reviews_enabled?: boolean
+          custom_theme?: Json | null
+          header_layout?: string
           created_at?: string
           updated_at?: string
         }
@@ -65,6 +69,8 @@ export interface Database {
           cover_url?: string | null
           subscribe_enabled?: boolean
           reviews_enabled?: boolean
+          custom_theme?: Json | null
+          header_layout?: string
           created_at?: string
           updated_at?: string
         }

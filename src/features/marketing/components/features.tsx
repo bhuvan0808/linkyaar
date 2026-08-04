@@ -9,7 +9,7 @@ import { RotatingWord } from '@/features/marketing/components/rotating-word'
 /** Big pastel bento blocks, Linktree-style editorial sections. */
 export function Features() {
   return (
-    <section className="bg-brand-cream py-24 sm:py-32" id="features">
+    <section className="bg-brand-sand py-24 sm:py-32" id="features">
       <div className="mx-auto max-w-7xl px-6">
         {/* Rotating-word statement */}
         <FadeIn className="mx-auto max-w-4xl text-center">
@@ -22,7 +22,7 @@ export function Features() {
         <div className="mt-20 grid gap-5 lg:grid-cols-2">
           {/* Links block — blush */}
           <FadeIn>
-            <article className="rounded-[2.5rem] bg-brand-blush p-9 sm:p-12">
+            <article className="rounded-[2.5rem] bg-brand-peach p-9 sm:p-12">
               <div className="max-w-md">
                 <h3 className="font-display text-3xl leading-tight font-black tracking-tight text-brand-ink sm:text-4xl">
                   Unlimited links. Drag, drop, done.
@@ -52,7 +52,7 @@ export function Features() {
 
           {/* Sharing block — lilac */}
           <FadeIn delay={0.08}>
-            <article className="flex flex-col rounded-[2.5rem] bg-brand-lilac p-9 sm:p-12">
+            <article className="flex flex-col rounded-[2.5rem] bg-brand-sage p-9 sm:p-12">
               <div className="max-w-md">
                 <h3 className="font-display text-3xl leading-tight font-black tracking-tight text-brand-ink sm:text-4xl">
                   Share it everywhere. Even offline.
@@ -77,7 +77,7 @@ export function Features() {
           {/* SEO block — white */}
           <FadeIn>
             <article className="rounded-[2.5rem] bg-white p-9 shadow-[0_4px_24px_rgba(0,0,0,0.05)] sm:p-12">
-              <Search className="size-8 text-brand-violet" aria-hidden />
+              <Search className="size-8 text-brand-red" aria-hidden />
               <h3 className="mt-5 font-display text-3xl leading-tight font-black tracking-tight text-brand-ink sm:text-4xl">
                 Found on Google, gorgeous on socials.
               </h3>
@@ -91,7 +91,7 @@ export function Features() {
           {/* Open source block — ink */}
           <FadeIn delay={0.08}>
             <article className="rounded-[2.5rem] bg-brand-ink p-9 sm:p-12">
-              <Unlock className="size-8 text-brand-lime" aria-hidden />
+              <Unlock className="size-8 text-brand-cream" aria-hidden />
               <h3 className="mt-5 font-display text-3xl leading-tight font-black tracking-tight text-white sm:text-4xl">
                 Open source. No ransom. Ever.
               </h3>

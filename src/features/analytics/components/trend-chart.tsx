@@ -13,11 +13,11 @@ export interface DayPoint {
 
 /**
  * Two-series 30-day trend. Palette validated with the dataviz
- * six-checks script (light surface): views #7C3AED, clicks #0D9488.
+ * six-checks script (light surface): views #C13A2A, clicks #0E8A6E.
  */
 const SERIES = [
-  { key: 'views' as const, label: 'Views', color: '#7C3AED' },
-  { key: 'clicks' as const, label: 'Clicks', color: '#0D9488' },
+  { key: 'views' as const, label: 'Views', color: '#C13A2A' },
+  { key: 'clicks' as const, label: 'Clicks', color: '#0E8A6E' },
 ]
 
 const W = 640

@@ -4,11 +4,7 @@
 import { cache } from 'react'
 
 import { createClient } from '@/lib/supabase/server'
-import {
-  FALLBACK_TOKENS,
-  parseThemeTokens,
-  type ThemeTokens,
-} from '@/features/themes/tokens'
+import { mergeThemeTokens, type ThemeTokens } from '@/features/themes/tokens'
 import { type Link, type Profile, type SocialLink, type Tables } from '@/types/database'
 
 export interface PublicProfileData {
@@ -73,7 +69,7 @@ export const getPublicProfile = cache(
       links: linksRes.data ?? [],
       socials: socialsRes.data ?? [],
       reviews: reviewsRes.data ?? [],
-      tokens: themeRes.data ? parseThemeTokens(themeRes.data.tokens) : FALLBACK_TOKENS,
+      tokens: mergeThemeTokens(themeRes.data?.tokens ?? null, profile.custom_theme),
     }
   }
 )

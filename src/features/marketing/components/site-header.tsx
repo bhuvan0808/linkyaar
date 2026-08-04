@@ -70,7 +70,7 @@ export function SiteHeader({ stars }: { stars: number | null }) {
           >
             <BrandIcon path={siGithub.path} className="size-4.5" />
             <span className="hidden lg:inline">Star</span>
-            <span className="flex items-center gap-1 rounded-full bg-brand-lime px-2 py-0.5 text-[12.5px] font-bold text-brand-ink">
+            <span className="flex items-center gap-1 rounded-full bg-brand-cream px-2 py-0.5 text-[12.5px] font-bold text-brand-ink">
               <Star className="size-3 fill-current" aria-hidden />
               {stars !== null ? formatStars(stars) : '—'}
             </span>

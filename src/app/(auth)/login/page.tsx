@@ -22,10 +22,10 @@ export default function LoginPage() {
             href="/"
             className="font-display text-xl font-black tracking-tight text-white"
           >
-            LinkYaar<span className="text-brand-lime">*</span>
+            LinkYaar<span className="text-brand-cream">*</span>
           </Link>
           <blockquote className="max-w-md">
-            <p className="font-display text-4xl leading-tight font-black text-balance text-brand-lime">
+            <p className="font-display text-4xl leading-tight font-black text-balance text-brand-cream">
               “One page that finally feels like my whole self.”
             </p>
             <footer className="mt-5 text-sm font-medium text-white/50">

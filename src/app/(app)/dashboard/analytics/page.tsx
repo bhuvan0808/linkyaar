@@ -47,7 +47,7 @@ function BreakdownCard({
                 </div>
                 <div className="h-1.5 overflow-hidden rounded-full bg-muted">
                   <div
-                    className="h-full rounded-full bg-[#7C3AED]"
+                    className="h-full rounded-full bg-[#C13A2A]"
                     style={{ width: `${(row.count / max) * 100}%` }}
                   />
                 </div>
@@ -200,7 +200,7 @@ export default async function AnalyticsPage() {
                       role="presentation"
                     >
                       <div
-                        className="h-full rounded-full bg-[#7C3AED]"
+                        className="h-full rounded-full bg-[#C13A2A]"
                         style={{ width: `${(link.clicks / maxTopClicks) * 100}%` }}
                       />
                     </div>

@@ -27,12 +27,12 @@
   --popover-foreground: oklch(0.19 0.022 286);
 
   /* Brand */
-  --primary: oklch(0.24 0.05 289); /* deep midnight */
+  --primary: oklch(0.33 0.07 155); /* deep forest green */
   --primary-foreground: oklch(0.984 0.004 85);
-  --accent: oklch(0.565 0.235 292); /* electric violet */
+  --accent: oklch(0.55 0.19 30); /* chili red */
   --accent-foreground: oklch(0.984 0.004 85);
-  --secondary: oklch(0.945 0.026 295); /* soft lavender */
-  --secondary-foreground: oklch(0.32 0.06 290);
+  --secondary: oklch(0.94 0.04 85); /* warm cream */
+  --secondary-foreground: oklch(0.35 0.07 155);
 
   /* Support */
   --muted: oklch(0.955 0.008 85);
@@ -45,7 +45,7 @@
   /* Lines & focus */
   --border: oklch(0.915 0.008 286);
   --input: oklch(0.915 0.008 286);
-  --ring: oklch(0.565 0.235 292);
+  --ring: oklch(0.55 0.19 30);
 
   --radius: 0.75rem;
 }
@@ -64,7 +64,7 @@
   /* Brand */
   --primary: oklch(0.955 0.006 85);
   --primary-foreground: oklch(0.2 0.03 288);
-  --accent: oklch(0.64 0.21 293); /* violet lifts in the dark */
+  --accent: oklch(0.62 0.17 32); /* chili red lifts in the dark */
   --accent-foreground: oklch(0.984 0.004 85);
   --secondary: oklch(0.26 0.03 290);
   --secondary-foreground: oklch(0.9 0.03 295);
@@ -80,7 +80,7 @@
   /* Lines & focus */
   --border: oklch(0.28 0.014 286);
   --input: oklch(0.28 0.014 286);
-  --ring: oklch(0.64 0.21 293);
+  --ring: oklch(0.62 0.17 32);
 }
 
 @theme inline {
@@ -112,16 +112,17 @@
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
   --font-display: var(--font-bricolage), var(--font-geist-sans), sans-serif;
 
-  /* Brand palette — flat, bold, Linktree-energy color blocks */
-  --color-brand-lime: oklch(0.91 0.2 118); /* acid lime */
-  --color-brand-ink: oklch(0.29 0.14 296); /* deep violet ink */
-  --color-brand-plum: oklch(0.33 0.12 355); /* dark plum (FAQ block) */
-  --color-brand-plum-deep: oklch(0.26 0.1 355);
-  --color-brand-lilac: oklch(0.89 0.07 300); /* pastel lilac */
-  --color-brand-blush: oklch(0.9 0.07 350); /* pastel blush */
-  --color-brand-sage: oklch(0.93 0.04 120); /* pale sage */
-  --color-brand-cream: oklch(0.965 0.005 95); /* section off-white */
-  --color-brand-violet: oklch(0.55 0.25 293); /* vivid accent */
+  /* Brand palette — warm diner-Americana color blocks
+     (chili red · deep forest green · cream) */
+  --color-brand-red: oklch(0.55 0.19 30); /* chili red accent */
+  --color-brand-red-deep: oklch(0.42 0.15 28); /* dark red (FAQ block) */
+  --color-brand-maroon: oklch(0.34 0.12 28); /* deepest red surface */
+  --color-brand-ink: oklch(0.33 0.07 155); /* deep forest green ink */
+  --color-brand-cream: oklch(0.95 0.045 85); /* hero/CTA cream */
+  --color-brand-sand: oklch(0.975 0.018 85); /* section off-white */
+  --color-brand-peach: oklch(0.9 0.06 45); /* pastel block */
+  --color-brand-sage: oklch(0.92 0.045 140); /* pastel green block */
+  --color-brand-butter: oklch(0.93 0.07 90); /* warm yellow block */
 
   /* Radius ramp */
   --radius-sm: calc(var(--radius) - 4px);
@@ -138,7 +139,7 @@
   --shadow-float:
     0 4px 8px oklch(0.19 0.02 286 / 6%), 0 24px 64px oklch(0.19 0.02 286 / 14%);
   --shadow-glow:
-    0 0 0 1px oklch(0.565 0.235 292 / 12%), 0 4px 24px oklch(0.565 0.235 292 / 20%);
+    0 0 0 1px oklch(0.55 0.19 30 / 12%), 0 4px 24px oklch(0.55 0.19 30 / 20%);
 
   /* Motion — Apple-like curves, 200–500ms */
   --ease-out-soft: cubic-bezier(0.25, 1, 0.5, 1);

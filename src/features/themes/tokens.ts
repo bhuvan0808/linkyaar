@@ -5,6 +5,16 @@ import { type Json } from '@/types/json'
 
 export type ButtonVariant = 'filled' | 'outline' | 'glass' | 'soft' | 'gradient'
 export type ButtonRadius = 'pill' | 'rounded' | 'square'
+export type FontKey = 'sans' | 'display' | 'serif' | 'rounded' | 'mono' | 'elegant'
+
+export const FONT_KEYS: readonly FontKey[] = [
+  'sans',
+  'display',
+  'serif',
+  'rounded',
+  'mono',
+  'elegant',
+]
 
 /** The contract stored in themes.tokens (jsonb). */
 export interface ThemeTokens {
@@ -16,6 +26,7 @@ export interface ThemeTokens {
   accent: string
   buttonVariant: ButtonVariant
   buttonRadius: ButtonRadius
+  font: FontKey
 }
 
 export const FALLBACK_TOKENS: ThemeTokens = {
@@ -26,6 +37,7 @@ export const FALLBACK_TOKENS: ThemeTokens = {
   accent: 'oklch(0.64 0.21 293)',
   buttonVariant: 'glass',
   buttonRadius: 'rounded',
+  font: 'sans',
 }
 
 const BUTTON_VARIANTS: readonly ButtonVariant[] = [
@@ -46,6 +58,7 @@ export function parseThemeTokens(raw: Json | null | undefined): ThemeTokens {
 
   const variant = str(t.buttonVariant, FALLBACK_TOKENS.buttonVariant)
   const radius = str(t.buttonRadius, FALLBACK_TOKENS.buttonRadius)
+  const font = str(t.font, FALLBACK_TOKENS.font)
 
   return {
     mode: t.mode === 'light' ? 'light' : 'dark',
@@ -59,5 +72,19 @@ export function parseThemeTokens(raw: Json | null | undefined): ThemeTokens {
     buttonRadius: BUTTON_RADII.includes(radius as ButtonRadius)
       ? (radius as ButtonRadius)
       : FALLBACK_TOKENS.buttonRadius,
+    font: FONT_KEYS.includes(font as FontKey) ? (font as FontKey) : 'sans',
   }
+}
+
+/**
+ * Effective tokens = preset theme tokens overlaid with the profile's
+ * custom overrides (Theme Studio edits win field-by-field).
+ */
+export function mergeThemeTokens(
+  base: Json | null | undefined,
+  custom: Json | null | undefined
+): ThemeTokens {
+  const b = base && typeof base === 'object' && !Array.isArray(base) ? base : {}
+  const c = custom && typeof custom === 'object' && !Array.isArray(custom) ? custom : {}
+  return parseThemeTokens({ ...(b as object), ...(c as object) } as Json)
 }

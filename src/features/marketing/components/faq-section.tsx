@@ -35,10 +35,10 @@ const faqs = [
 /** Deep plum FAQ block, Linktree-style. */
 export function FaqSection() {
   return (
-    <section className="bg-brand-plum py-24 sm:py-32">
+    <section className="bg-brand-red-deep py-24 sm:py-32">
       <div className="mx-auto max-w-4xl px-6">
         <FadeIn>
-          <h2 className="text-center font-display text-4xl font-black tracking-tight text-balance text-brand-lilac sm:text-6xl">
+          <h2 className="text-center font-display text-4xl font-black tracking-tight text-balance text-brand-cream sm:text-6xl">
             Questions? Answered.
           </h2>
         </FadeIn>
@@ -46,17 +46,17 @@ export function FaqSection() {
         <div className="mt-14 flex flex-col gap-4">
           {faqs.map((faq, i) => (
             <FadeIn key={faq.q} delay={Math.min(i * 0.05, 0.25)}>
-              <details className="group rounded-[1.75rem] bg-brand-plum-deep px-7 py-6 transition-colors duration-200 open:pb-7">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-bold text-brand-lilac sm:text-xl [&::-webkit-details-marker]:hidden">
+              <details className="group rounded-[1.75rem] bg-brand-maroon px-7 py-6 transition-colors duration-200 open:pb-7">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-bold text-brand-cream sm:text-xl [&::-webkit-details-marker]:hidden">
                   {faq.q}
                   <span
-                    className="text-2xl text-brand-lilac/60 transition-transform duration-200 group-open:rotate-45"
+                    className="text-2xl text-brand-cream/60 transition-transform duration-200 group-open:rotate-45"
                     aria-hidden
                   >
                     +
                   </span>
                 </summary>
-                <p className="mt-4 max-w-2xl text-[15px] leading-relaxed font-medium text-brand-lilac/75">
+                <p className="mt-4 max-w-2xl text-[15px] leading-relaxed font-medium text-brand-cream/75">
                   {faq.a}
                 </p>
               </details>
@@ -65,9 +65,9 @@ export function FaqSection() {
         </div>
 
         <FadeIn className="mt-10 text-center">
-          <p className="text-sm font-medium text-brand-lilac/60">
+          <p className="text-sm font-medium text-brand-cream/60">
             More questions in the{' '}
-            <Link href="/help" className="text-brand-lilac underline underline-offset-4">
+            <Link href="/help" className="text-brand-cream underline underline-offset-4">
               Help Center
             </Link>
           </p>

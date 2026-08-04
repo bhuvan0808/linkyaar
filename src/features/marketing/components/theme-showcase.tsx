@@ -16,7 +16,7 @@ export async function ThemeShowcase() {
   if (!themes?.length) return null
 
   return (
-    <section className="bg-brand-cream py-24 sm:py-32" id="themes">
+    <section className="bg-brand-sand py-24 sm:py-32" id="themes">
       <div className="mx-auto max-w-7xl px-6">
         <FadeIn className="max-w-3xl">
           <h2 className="font-display text-4xl leading-[1.02] font-black tracking-tight text-balance text-brand-ink sm:text-6xl">

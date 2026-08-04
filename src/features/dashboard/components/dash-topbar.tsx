@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { signOut } from '@/features/auth/actions'
+import { HelpMenu } from '@/features/dashboard/components/help-menu'
 import { QrDialog } from '@/features/share/components/qr-dialog'
 import { siteConfig } from '@/config/site'
 
@@ -59,6 +60,8 @@ export function DashTopbar({
           </button>
 
           <QrDialog url={publicUrl} />
+
+          <HelpMenu />
 
           <Button variant="outline" size="sm" className="rounded-full" asChild>
             <a href={`/${username}`} target="_blank" rel="noreferrer">

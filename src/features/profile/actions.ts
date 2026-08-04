@@ -73,12 +73,60 @@ export async function setTheme(themeId: string): Promise<ActionResult> {
   if (!parsed.success) return { error: 'Invalid theme.' }
 
   const { supabase, user } = await requireUser()
+  // Picking a preset clears Studio overrides — the preset is the truth.
   const { error } = await supabase
     .from('profiles')
-    .update({ theme_id: parsed.data })
+    .update({ theme_id: parsed.data, custom_theme: null })
     .eq('id', user.id)
 
   if (error) return { error: 'Could not apply the theme.' }
+  revalidatePath('/dashboard')
+  return {}
+}
+
+const customThemeSchema = z
+  .object({
+    mode: z.enum(['light', 'dark']).optional(),
+    background: z.string().max(600).optional(),
+    foreground: z.string().max(100).optional(),
+    muted: z.string().max(100).optional(),
+    accent: z.string().max(100).optional(),
+    buttonVariant: z.enum(['filled', 'outline', 'glass', 'soft', 'gradient']).optional(),
+    buttonRadius: z.enum(['pill', 'rounded', 'square']).optional(),
+    font: z.enum(['sans', 'display', 'serif', 'rounded', 'mono', 'elegant']).optional(),
+  })
+  .strict()
+
+export type CustomThemeInput = z.infer<typeof customThemeSchema>
+
+export async function saveCustomTheme(raw: CustomThemeInput): Promise<ActionResult> {
+  const parsed = customThemeSchema.safeParse(raw)
+  if (!parsed.success) return { error: 'Invalid theme settings.' }
+
+  const { supabase, user } = await requireUser()
+  const { error } = await supabase
+    .from('profiles')
+    .update({ custom_theme: parsed.data })
+    .eq('id', user.id)
+
+  if (error) return { error: 'Could not save your custom theme.' }
+  revalidatePath('/dashboard')
+  return {}
+}
+
+export async function setHeaderLayout(
+  layout: 'classic' | 'portrait' | 'minimal'
+): Promise<ActionResult> {
+  const parsed = z.enum(['classic', 'portrait', 'minimal']).safeParse(layout)
+  if (!parsed.success) return { error: 'Invalid layout.' }
+
+  const { supabase, user } = await requireUser()
+  const { error } = await supabase
+    .from('profiles')
+    .update({ header_layout: parsed.data })
+    .eq('id', user.id)
+
+  if (error) return { error: 'Could not save the layout.' }
   revalidatePath('/dashboard')
   return {}
 }

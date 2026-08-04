@@ -7,12 +7,12 @@ import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 
 const WORDS = [
-  { word: 'creators', color: 'oklch(0.55 0.25 293)' },
-  { word: 'artists', color: 'oklch(0.6 0.21 350)' },
-  { word: 'developers', color: 'oklch(0.55 0.17 250)' },
-  { word: 'musicians', color: 'oklch(0.62 0.19 40)' },
-  { word: 'writers', color: 'oklch(0.55 0.15 160)' },
-  { word: 'everyone', color: 'oklch(0.55 0.25 293)' },
+  { word: 'creators', color: 'oklch(0.55 0.19 30)' },
+  { word: 'artists', color: 'oklch(0.5 0.12 155)' },
+  { word: 'developers', color: 'oklch(0.55 0.14 250)' },
+  { word: 'musicians', color: 'oklch(0.62 0.15 60)' },
+  { word: 'writers', color: 'oklch(0.5 0.13 200)' },
+  { word: 'everyone', color: 'oklch(0.55 0.19 30)' },
 ]
 
 export function RotatingWord() {

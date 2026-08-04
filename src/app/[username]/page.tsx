@@ -11,6 +11,7 @@ import { PublicLink } from '@/features/public-profile/components/public-link'
 import { ReviewsBlock } from '@/features/public-profile/components/reviews-block'
 import { SocialsRow } from '@/features/public-profile/components/socials-row'
 import { SubscribeCard } from '@/features/public-profile/components/subscribe-card'
+import { THEME_FONTS } from '@/features/themes/fonts'
 import { createAnonClient } from '@/lib/supabase/anon'
 import { parseUserAgent } from '@/lib/ua'
 import { siteConfig } from '@/config/site'
@@ -92,7 +93,7 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
 
   return (
     <main
-      className="flex min-h-dvh flex-col items-center px-5 py-14 sm:py-20"
+      className={`flex min-h-dvh flex-col items-center px-5 py-14 sm:py-20 ${THEME_FONTS[tokens.font]?.className ?? 'font-sans'}`}
       style={{ background: tokens.background, color: tokens.foreground }}
     >
       <script
@@ -101,27 +102,36 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
       />
 
       <div className="flex w-full max-w-lg flex-1 flex-col items-center">
-        {/* Identity */}
-        {profile.avatar_url ? (
-          // eslint-disable-next-line @next/next/no-img-element -- arbitrary storage host
-          <img
-            src={profile.avatar_url}
-            alt=""
-            width={96}
-            height={96}
-            className="size-24 rounded-full object-cover shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
-          />
-        ) : (
-          <div
-            className="flex size-24 items-center justify-center rounded-full text-3xl font-semibold uppercase shadow-[0_8px_32px_rgba(0,0,0,0.25)]"
-            style={{
-              background: `color-mix(in oklab, ${tokens.accent} 25%, transparent)`,
-            }}
-            aria-hidden
-          >
-            {profile.username?.slice(0, 2)}
-          </div>
-        )}
+        {/* Identity — layout chosen in the Theme Studio */}
+        {profile.header_layout !== 'minimal' &&
+          (profile.avatar_url ? (
+            // eslint-disable-next-line @next/next/no-img-element -- arbitrary storage host
+            <img
+              src={profile.avatar_url}
+              alt=""
+              width={profile.header_layout === 'portrait' ? 144 : 96}
+              height={profile.header_layout === 'portrait' ? 176 : 96}
+              className={
+                profile.header_layout === 'portrait'
+                  ? 'h-44 w-36 rounded-[1.75rem] object-cover shadow-[0_12px_40px_rgba(0,0,0,0.3)]'
+                  : 'size-24 rounded-full object-cover shadow-[0_8px_32px_rgba(0,0,0,0.25)]'
+              }
+            />
+          ) : (
+            <div
+              className={`flex items-center justify-center text-3xl font-semibold uppercase shadow-[0_8px_32px_rgba(0,0,0,0.25)] ${
+                profile.header_layout === 'portrait'
+                  ? 'h-44 w-36 rounded-[1.75rem]'
+                  : 'size-24 rounded-full'
+              }`}
+              style={{
+                background: `color-mix(in oklab, ${tokens.accent} 25%, transparent)`,
+              }}
+              aria-hidden
+            >
+              {profile.username?.slice(0, 2)}
+            </div>
+          ))}
 
         <h1 className="mt-5 text-center text-2xl font-bold tracking-tight text-balance">
           {name}
