@@ -191,8 +191,18 @@ export function LinksManager({ links }: { links: Link[] }) {
       </Button>
 
       {items.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-border px-6 py-14 text-center">
-          <p className="text-[15px] font-medium">Your page is a blank canvas</p>
+        <div className="flex flex-col items-center rounded-2xl border border-dashed border-border bg-secondary/30 px-6 py-14 text-center">
+          {/* eslint-disable-next-line @next/next/no-img-element -- brand glyph */}
+          <img
+            src="/brand/glyph-ink.png"
+            alt=""
+            width={40}
+            height={40}
+            className="h-10 w-auto opacity-70"
+          />
+          <p className="mt-4 font-display text-lg font-black tracking-tight">
+            Your page is a blank canvas
+          </p>
           <p className="mt-1 text-sm text-muted-foreground">
             Add your first link — your latest video, your shop, anything.
           </p>

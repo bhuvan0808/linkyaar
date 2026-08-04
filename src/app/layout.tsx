@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from 'next'
 import { Bricolage_Grotesque, Geist, Geist_Mono } from 'next/font/google'
 
 import { Toaster } from '@/components/ui/sonner'
+import { PostHogProvider } from '@/providers/posthog-provider'
 import { siteConfig } from '@/config/site'
 import '@/styles/globals.css'
 
@@ -70,6 +71,7 @@ export default function RootLayout({
       >
         {children}
         <Toaster position="bottom-center" />
+        <PostHogProvider />
       </body>
     </html>
   )

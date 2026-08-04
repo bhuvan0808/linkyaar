@@ -178,9 +178,29 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
         {/* Links */}
         <div className="mt-8 flex w-full flex-col gap-3.5">
           {links.length === 0 ? (
-            <p className="text-center text-sm" style={{ color: tokens.muted }}>
-              Nothing here yet — check back soon.
-            </p>
+            <div
+              className="flex flex-col items-center gap-3 rounded-3xl px-6 py-10 text-center"
+              style={{
+                background: `color-mix(in oklab, ${tokens.foreground} 7%, transparent)`,
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element -- brand glyph */}
+              <img
+                src={
+                  tokens.mode === 'dark'
+                    ? '/brand/glyph-white.png'
+                    : '/brand/glyph-ink.png'
+                }
+                alt=""
+                width={36}
+                height={36}
+                className="h-9 w-auto opacity-60"
+              />
+              <p className="text-[15px] font-semibold">{name} is setting things up</p>
+              <p className="max-w-xs text-sm" style={{ color: tokens.muted }}>
+                Their links will appear here soon — check back in a bit. ✨
+              </p>
+            </div>
           ) : (
             links.map((link) => <PublicLink key={link.id} link={link} tokens={tokens} />)
           )}
