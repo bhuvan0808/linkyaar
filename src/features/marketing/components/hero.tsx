@@ -101,8 +101,9 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.12, ease: EASE }}
             className="mt-7 max-w-lg text-lg font-medium text-pretty text-brand-ink/80 sm:text-xl"
           >
-            The open-source link in bio. Share everything you create, curate, and love —
-            from one link that is completely, forever yours.
+            LinkYaar is a free, open-source link-in-bio tool. Create one page for all your
+            links, socials, and work — sign in with email or Google, share one link
+            everywhere, and see who visits.
           </motion.p>
 
           <motion.form

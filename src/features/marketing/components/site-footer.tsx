@@ -63,18 +63,25 @@ export function SiteFooter() {
   return (
     <footer className="bg-brand-ink">
       <div className="mx-auto max-w-7xl px-6 pt-20 pb-10">
-        <div className="mb-14 flex items-center gap-2.5">
-          {/* eslint-disable-next-line @next/next/no-img-element -- small brand glyph */}
-          <img
-            src="/brand/glyph-white.png"
-            alt=""
-            width={30}
-            height={30}
-            className="h-7.5 w-auto"
-          />
-          <span className="font-display text-2xl font-black tracking-tight text-white">
-            LinkYaar
-          </span>
+        <div className="mb-14">
+          <div className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element -- small brand glyph */}
+            <img
+              src="/brand/glyph-white.png"
+              alt=""
+              width={30}
+              height={30}
+              className="h-7.5 w-auto"
+            />
+            <span className="font-display text-2xl font-black tracking-tight text-white">
+              LinkYaar
+            </span>
+          </div>
+          <p className="mt-3 max-w-md text-[15px] font-medium text-white/60">
+            LinkYaar is a free, open-source link-in-bio platform: one page for all your
+            links, socials, and work, with private analytics and an audience that belongs
+            to you.
+          </p>
         </div>
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {columns.map((column) => (
