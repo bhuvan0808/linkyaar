@@ -192,17 +192,33 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
         ) : null}
       </div>
 
-      {/* Attribution */}
-      <footer className="mt-14">
+      {/* Attribution — always in brand colors/type, legible on any theme */}
+      <footer className="mt-14 font-sans">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-medium transition-all duration-200 hover:-translate-y-0.5"
-          style={{
-            color: tokens.foreground,
-            background: `color-mix(in oklab, ${tokens.foreground} 8%, transparent)`,
-          }}
+          className="inline-flex items-center gap-2 rounded-full py-2 pr-4 pl-3 text-[13px] font-semibold shadow-[0_4px_16px_rgba(0,0,0,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:scale-[1.03]"
+          style={
+            tokens.mode === 'dark'
+              ? { background: '#ffffff', color: 'oklch(0.33 0.07 155)' }
+              : { background: 'oklch(0.33 0.07 155)', color: '#ffffff' }
+          }
         >
-          ⚡ Make your own LinkYaar
+          {/* eslint-disable-next-line @next/next/no-img-element -- small brand glyph */}
+          <img
+            src={
+              tokens.mode === 'dark' ? '/brand/glyph-ink.png' : '/brand/glyph-white.png'
+            }
+            alt=""
+            width={18}
+            height={18}
+            className="h-4.5 w-auto"
+          />
+          <span>
+            Make your own{' '}
+            <span className="font-display text-[14px] font-black tracking-tight">
+              LinkYaar
+            </span>
+          </span>
         </Link>
       </footer>
     </main>

@@ -41,8 +41,22 @@ export function DashTopbar({
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
-        <Link href="/dashboard" className="text-[17px] font-semibold tracking-tight">
-          Link<span className="text-accent">Yaar</span>
+        <Link
+          href="/dashboard"
+          className="flex items-center gap-2"
+          aria-label="LinkYaar dashboard"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element -- small brand glyph */}
+          <img
+            src="/brand/glyph-ink.png"
+            alt=""
+            width={26}
+            height={26}
+            className="h-6.5 w-auto"
+          />
+          <span className="font-display text-[19px] font-black tracking-tight text-primary">
+            LinkYaar
+          </span>
         </Link>
 
         <div className="flex items-center gap-2">

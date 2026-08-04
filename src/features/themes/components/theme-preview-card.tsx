@@ -86,9 +86,27 @@ export function ThemePreviewCard({
         ))}
       </div>
 
-      <p className="mt-auto pt-4 text-[10px] tracking-wide opacity-50">
-        linkyaar.com/you
-      </p>
+      <div
+        className="mt-auto flex items-center gap-1.5 rounded-full px-3 py-1.5 font-sans text-[10px] font-semibold"
+        style={
+          tokens.mode === 'dark'
+            ? { background: '#ffffff', color: 'oklch(0.33 0.07 155)' }
+            : { background: 'oklch(0.33 0.07 155)', color: '#ffffff' }
+        }
+        aria-hidden
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- tiny brand glyph */}
+        <img
+          src={tokens.mode === 'dark' ? '/brand/glyph-ink.png' : '/brand/glyph-white.png'}
+          alt=""
+          width={12}
+          height={12}
+          className="h-3 w-auto"
+        />
+        <span>
+          Make your own <span className="font-display font-black">LinkYaar</span>
+        </span>
+      </div>
     </div>
   )
 }
