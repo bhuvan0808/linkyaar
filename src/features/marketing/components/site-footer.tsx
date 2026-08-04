@@ -13,6 +13,7 @@ const columns: {
     heading: 'Company',
     links: [
       { label: 'About', href: '/about' },
+      { label: 'Meet the maintainer 👋', href: '/about#maintainer' },
       { label: 'Roadmap', href: '/roadmap' },
       { label: "What's new", href: '/changelog' },
       { label: 'Support us 💛', href: '/support' },
