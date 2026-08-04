@@ -54,7 +54,10 @@ export function emailTemplate(input: {
 <html>
   <body style="margin:0;padding:0;background:#F3F3F1;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;">
     <div style="max-width:520px;margin:0 auto;padding:32px 20px;">
-      <p style="font-size:20px;font-weight:800;color:#2E1065;margin:0 0 20px;">LinkYaar</p>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 0 20px;"><tr>
+        <td style="padding-right:10px;"><img src="https://linkyaar.com/brand/glyph-ink.png" width="28" height="28" alt="" style="display:block;border-radius:6px;" /></td>
+        <td style="font-size:20px;font-weight:800;color:#2E1065;">LinkYaar</td>
+      </tr></table>
       <div style="background:#ffffff;border-radius:20px;padding:32px 28px;">
         <h1 style="font-size:20px;color:#1a1523;margin:0 0 12px;">${input.heading}</h1>
         <div style="font-size:15px;line-height:1.6;color:#4a4458;">${input.body}</div>
