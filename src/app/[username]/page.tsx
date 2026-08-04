@@ -5,8 +5,11 @@ import { notFound } from 'next/navigation'
 import { after } from 'next/server'
 
 import { PublicLink } from '@/features/public-profile/components/public-link'
+import { ReviewsBlock } from '@/features/public-profile/components/reviews-block'
 import { SocialsRow } from '@/features/public-profile/components/socials-row'
+import { SubscribeCard } from '@/features/public-profile/components/subscribe-card'
 import { createAnonClient } from '@/lib/supabase/anon'
+import { parseUserAgent } from '@/lib/ua'
 import { siteConfig } from '@/config/site'
 import { getPublicProfile } from '@/services/profiles'
 
@@ -49,7 +52,7 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
   const data = await getPublicProfile(username)
   if (!data) notFound()
 
-  const { profile, links, socials, tokens } = data
+  const { profile, links, socials, reviews, tokens } = data
   const name = profile.display_name ?? `@${profile.username}`
   const detailLine = [profile.occupation, profile.location].filter(Boolean).join(' · ')
 
@@ -60,12 +63,16 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
     const headerList = await headers()
     const referrer = headerList.get('referer')
     const country = headerList.get('x-vercel-ip-country')
+    const ua = parseUserAgent(headerList.get('user-agent'))
     after(async () => {
       const supabase = createAnonClient()
       await supabase.from('profile_views').insert({
         profile_id: profile.id,
         referrer,
         country,
+        device: ua.device,
+        browser: ua.browser,
+        os: ua.os,
       })
     })
   }
@@ -158,6 +165,18 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
             links.map((link) => <PublicLink key={link.id} link={link} tokens={tokens} />)
           )}
         </div>
+
+        {/* Audience blocks */}
+        {profile.subscribe_enabled ? (
+          <div className="mt-8 w-full">
+            <SubscribeCard profileId={profile.id} tokens={tokens} />
+          </div>
+        ) : null}
+        {profile.reviews_enabled ? (
+          <div className="mt-6 w-full">
+            <ReviewsBlock profileId={profile.id} reviews={reviews} tokens={tokens} />
+          </div>
+        ) : null}
       </div>
 
       {/* Attribution */}

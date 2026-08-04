@@ -24,6 +24,8 @@ export interface Database {
           location: string | null
           pronouns: string | null
           cover_url: string | null
+          subscribe_enabled: boolean
+          reviews_enabled: boolean
           created_at: string
           updated_at: string
         }
@@ -40,6 +42,8 @@ export interface Database {
           location?: string | null
           pronouns?: string | null
           cover_url?: string | null
+          subscribe_enabled?: boolean
+          reviews_enabled?: boolean
           created_at?: string
           updated_at?: string
         }
@@ -56,8 +60,67 @@ export interface Database {
           location?: string | null
           pronouns?: string | null
           cover_url?: string | null
+          subscribe_enabled?: boolean
+          reviews_enabled?: boolean
           created_at?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      contacts: {
+        Row: {
+          id: string
+          profile_id: string
+          email: string
+          name: string | null
+          source: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+          email: string
+          name?: string | null
+          source?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+          email?: string
+          name?: string | null
+          source?: string
+          created_at?: string
+        }
+        Relationships: []
+      }
+      reviews: {
+        Row: {
+          id: string
+          profile_id: string
+          author_name: string
+          rating: number
+          body: string | null
+          is_approved: boolean
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+          author_name: string
+          rating: number
+          body?: string | null
+          is_approved?: boolean
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+          author_name?: string
+          rating?: number
+          body?: string | null
+          is_approved?: boolean
+          created_at?: string
         }
         Relationships: []
       }
@@ -193,18 +256,27 @@ export interface Database {
           profile_id: string
           referrer: string | null
           country: string | null
+          device: string | null
+          browser: string | null
+          os: string | null
           created_at: string
         }
         Insert: {
           profile_id: string
           referrer?: string | null
           country?: string | null
+          device?: string | null
+          browser?: string | null
+          os?: string | null
           created_at?: string
         }
         Update: {
           profile_id?: string
           referrer?: string | null
           country?: string | null
+          device?: string | null
+          browser?: string | null
+          os?: string | null
           created_at?: string
         }
         Relationships: []
@@ -216,6 +288,7 @@ export interface Database {
           profile_id: string
           referrer: string | null
           country: string | null
+          device: string | null
           created_at: string
         }
         Insert: {
@@ -223,6 +296,7 @@ export interface Database {
           profile_id: string
           referrer?: string | null
           country?: string | null
+          device?: string | null
           created_at?: string
         }
         Update: {
@@ -230,6 +304,7 @@ export interface Database {
           profile_id?: string
           referrer?: string | null
           country?: string | null
+          device?: string | null
           created_at?: string
         }
         Relationships: []
@@ -252,6 +327,10 @@ export interface Database {
       analytics_top_links: {
         Args: { p_days?: number }
         Returns: { link_id: string; title: string; clicks: number }[]
+      }
+      analytics_breakdown: {
+        Args: { p_days?: number }
+        Returns: { kind: string; label: string; count: number }[]
       }
     }
     Enums: Record<string, never>

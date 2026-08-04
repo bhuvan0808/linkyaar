@@ -1,6 +1,6 @@
 'use client'
 
-import { BarChart3, LayoutGrid, Palette, Settings } from 'lucide-react'
+import { BarChart3, LayoutGrid, Palette, Settings, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 const items = [
   { href: '/dashboard', label: 'Links', icon: LayoutGrid, exact: true },
   { href: '/dashboard/appearance', label: 'Appearance', icon: Palette, exact: false },
+  { href: '/dashboard/audience', label: 'Audience', icon: Users, exact: false },
   { href: '/dashboard/analytics', label: 'Analytics', icon: BarChart3, exact: false },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings, exact: false },
 ]

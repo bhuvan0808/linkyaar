@@ -14,6 +14,49 @@ import { getOwnProfile } from '@/services/profiles'
 
 export const metadata: Metadata = { title: 'Analytics' }
 
+function BreakdownCard({
+  title,
+  rows,
+  empty,
+}: {
+  title: string
+  rows: { label: string; count: number }[]
+  empty: string
+}) {
+  const max = Math.max(1, ...rows.map((r) => r.count))
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">{title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        {rows.length === 0 ? (
+          <p className="text-sm text-muted-foreground">{empty}</p>
+        ) : (
+          <ul className="flex flex-col gap-2.5">
+            {rows.map((row) => (
+              <li key={row.label}>
+                <div className="mb-1 flex items-baseline justify-between gap-2">
+                  <span className="truncate text-sm font-medium">{row.label}</span>
+                  <span className="text-xs text-muted-foreground tabular-nums">
+                    {row.count.toLocaleString()}
+                  </span>
+                </div>
+                <div className="h-1.5 overflow-hidden rounded-full bg-muted">
+                  <div
+                    className="h-full rounded-full bg-[#7C3AED]"
+                    style={{ width: `${(row.count / max) * 100}%` }}
+                  />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
 function StatTile({
   label,
   value,
@@ -37,18 +80,36 @@ export default async function AnalyticsPage() {
   if (!profile?.username) redirect('/onboarding')
 
   const supabase = await createClient()
-  const [dailyRes, topRes] = await Promise.all([
+  const [dailyRes, topRes, breakdownRes] = await Promise.all([
     supabase.rpc('analytics_daily', { p_days: 30 }),
     supabase.rpc('analytics_top_links', { p_days: 30 }),
+    supabase.rpc('analytics_breakdown', { p_days: 30 }),
   ])
 
   const daily = dailyRes.data ?? []
   const topLinks = (topRes.data ?? []).filter((l) => l.clicks > 0)
+  const breakdown = breakdownRes.data ?? []
+  const countries = breakdown.filter((b) => b.kind === 'country' && b.count > 0)
+  const sources = breakdown.filter((b) => b.kind === 'source' && b.count > 0)
+  const devices = breakdown.filter((b) => b.kind === 'device' && b.count > 0)
 
   const totalViews = daily.reduce((sum, d) => sum + d.views, 0)
   const totalClicks = daily.reduce((sum, d) => sum + d.clicks, 0)
   const ctr = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : '0.0'
   const maxTopClicks = Math.max(1, ...topLinks.map((l) => l.clicks))
+
+  // Linktree-style plain-language insight from the top of each breakdown.
+  const topCountry = countries[0]?.label
+  const topSource = sources[0]?.label
+  const topDevice = devices[0]?.label
+  const insight =
+    totalViews > 0 && topCountry
+      ? `Most of your visitors are in ${topCountry}${
+          topSource && topSource !== 'Direct'
+            ? `, find you via ${topSource}`
+            : ', arrive directly'
+        }${topDevice ? `, on ${topDevice} devices` : ''}.`
+      : null
 
   return (
     <div className="flex max-w-3xl flex-col gap-6">
@@ -73,6 +134,12 @@ export default async function AnalyticsPage() {
         <StatTile label="Click-through rate" value={`${ctr}%`} hint="Clicks per view" />
       </div>
 
+      {insight && (
+        <div className="rounded-2xl bg-secondary/60 px-5 py-4 text-[15px] text-secondary-foreground">
+          💡 {insight}
+        </div>
+      )}
+
       <Card>
         <CardHeader>
           <CardTitle>Daily trend</CardTitle>
@@ -82,6 +149,27 @@ export default async function AnalyticsPage() {
           <TrendChart data={daily} />
         </CardContent>
       </Card>
+
+      <div className="grid gap-4 lg:grid-cols-3">
+        <BreakdownCard
+          title="Top countries"
+          rows={countries.map((c) => ({ label: c.label, count: c.count }))}
+          empty="Country data appears as visits come in."
+        />
+        <BreakdownCard
+          title="Traffic sources"
+          rows={sources.map((s) => ({ label: s.label, count: s.count }))}
+          empty="Sources appear when visitors arrive via other sites."
+        />
+        <BreakdownCard
+          title="Devices"
+          rows={devices.map((d) => ({
+            label: d.label.charAt(0).toUpperCase() + d.label.slice(1),
+            count: d.count,
+          }))}
+          empty="Device data appears as visits come in."
+        />
+      </div>
 
       <Card>
         <CardHeader>

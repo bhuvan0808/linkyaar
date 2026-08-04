@@ -6,12 +6,13 @@ import {
   parseThemeTokens,
   type ThemeTokens,
 } from '@/features/themes/tokens'
-import { type Link, type Profile, type SocialLink } from '@/types/database'
+import { type Link, type Profile, type SocialLink, type Tables } from '@/types/database'
 
 export interface PublicProfileData {
   profile: Profile
   links: Link[]
   socials: SocialLink[]
+  reviews: Tables<'reviews'>[]
   tokens: ThemeTokens
 }
 
@@ -35,7 +36,7 @@ export const getPublicProfile = cache(
 
     const nowIso = new Date().toISOString()
 
-    const [linksRes, socialsRes, themeRes] = await Promise.all([
+    const [linksRes, socialsRes, reviewsRes, themeRes] = await Promise.all([
       supabase
         .from('links')
         .select('*')
@@ -50,6 +51,15 @@ export const getPublicProfile = cache(
         .select('*')
         .eq('profile_id', profile.id)
         .order('position'),
+      profile.reviews_enabled
+        ? supabase
+            .from('reviews')
+            .select('*')
+            .eq('profile_id', profile.id)
+            .eq('is_approved', true)
+            .order('created_at', { ascending: false })
+            .limit(8)
+        : Promise.resolve({ data: [] }),
       profile.theme_id
         ? supabase.from('themes').select('*').eq('id', profile.theme_id).maybeSingle()
         : Promise.resolve({ data: null }),
@@ -59,6 +69,7 @@ export const getPublicProfile = cache(
       profile,
       links: linksRes.data ?? [],
       socials: socialsRes.data ?? [],
+      reviews: reviewsRes.data ?? [],
       tokens: themeRes.data ? parseThemeTokens(themeRes.data.tokens) : FALLBACK_TOKENS,
     }
   }

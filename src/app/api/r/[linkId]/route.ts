@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 
 import { createClient } from '@/lib/supabase/server'
+import { parseUserAgent } from '@/lib/ua'
 
 export const dynamic = 'force-dynamic'
 
@@ -33,6 +34,7 @@ export async function GET(
     profile_id: link.profile_id,
     referrer: request.headers.get('referer'),
     country: request.headers.get('x-vercel-ip-country'),
+    device: parseUserAgent(request.headers.get('user-agent')).device,
   })
 
   return NextResponse.redirect(link.url, { status: 302 })
