@@ -20,7 +20,7 @@ const faqs = [
   },
   {
     q: 'Can I change how my page looks?',
-    a: 'Pick any of 15 hand-tuned themes in the Appearance tab. Each restyles your background, text, and button shapes in one tap — no CSS needed.',
+    a: 'Pick any of 27 hand-tuned themes, or open the Studio to design your own — wallpapers, gradients, 6 fonts, and 5 button styles. Everything previews instantly.',
   },
   {
     q: 'What analytics do I get?',

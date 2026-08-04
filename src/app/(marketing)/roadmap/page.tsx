@@ -21,13 +21,23 @@ const sections: {
     emoji: '✅',
     items: [
       { label: 'Profiles, unlimited links, drag-and-drop, scheduling', done: true },
-      { label: '15 themes with one-tap restyling', done: true },
+      {
+        label: '27 themes + Theme Studio: custom wallpapers, fonts, buttons, colors',
+        done: true,
+      },
+      {
+        label: 'Header layouts and 6 font personalities with instant live preview',
+        done: true,
+      },
+      { label: 'AI bio & headline writer — free, 25 drafts/day', done: true },
       { label: 'Email, magic link, and Google sign-in', done: true },
       { label: 'Analytics: views, clicks, CTR, countries, sources, devices', done: true },
       { label: 'Audience: subscribers and moderated reviews', done: true },
       { label: 'QR codes, SEO, dynamic social cards', done: true },
-      { label: 'Email notifications and weekly digests', done: true },
+      { label: 'Email notifications, welcome emails, and weekly digests', done: true },
+      { label: 'Platform-wide rate limiting and error monitoring', done: true },
       { label: 'GDPR export and one-click account deletion', done: true },
+      { label: 'UPI donations to keep everything free', done: true },
     ],
   },
   {
@@ -35,10 +45,11 @@ const sections: {
     emoji: '🔨',
     items: [
       { label: 'Content embeds: YouTube, Spotify, and more' },
+      { label: 'Link thumbnails and custom icons' },
       { label: 'Link shortener with custom short codes' },
       { label: 'Digital business cards (vCard download)' },
       { label: 'Free digital downloads' },
-      { label: 'Custom theme editor' },
+      { label: 'Pattern and image wallpapers in the Studio' },
     ],
   },
   {
@@ -47,7 +58,7 @@ const sections: {
     items: [
       { label: 'Payments: tips and digital products (Stripe / Razorpay / UPI)' },
       { label: 'Instagram auto-reply and social follower tracking' },
-      { label: 'AI bio and theme generation' },
+      { label: 'AI theme generation from a text prompt' },
       { label: 'Custom domains per creator' },
       { label: 'Teams and workspaces' },
     ],

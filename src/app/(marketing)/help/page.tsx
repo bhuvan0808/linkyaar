@@ -26,7 +26,7 @@ const faqs = [
   },
   {
     q: 'How do I change how my page looks?',
-    a: 'Dashboard → Appearance. Pick any of the 15 themes; each one restyles your background, text, and buttons in one tap. Your photo, headline, bio, and socials live on the same page.',
+    a: 'Dashboard → Appearance. Pick any of the 27 themes, or open the Studio tab to design your own — wallpapers, fonts, button styles, and colors, all with an instant live preview.',
   },
   {
     q: 'Can I hide a link without deleting it?',

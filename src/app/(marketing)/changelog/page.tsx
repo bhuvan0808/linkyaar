@@ -13,6 +13,20 @@ export const metadata: Metadata = {
 
 const releases = [
   {
+    date: 'August 5, 2026',
+    title: 'Theme Studio, free AI, and a whole new look',
+    points: [
+      'Brand-new identity: chili red, forest green, and warm cream',
+      'Theme Studio: design your own look — wallpapers, gradients, 6 fonts, 5 button styles, accent colors — with instant live preview',
+      '12 new premium themes (27 total); flagship "Sunset Club" is the new default',
+      'Header layouts: Classic, Portrait, and Minimal',
+      'AI bio & headline writer — free, 25 drafts/day, powered by a 4-provider free-tier chain',
+      'Socials editor redesign: all 14 platforms visible as tappable icons',
+      'Welcome emails, branded sign-in emails, and a support/donations page (UPI)',
+      'Platform-wide rate limiting, product analytics, and error monitoring',
+    ],
+  },
+  {
     date: 'August 4, 2026',
     title: 'linkyaar.com, email, and audience tools',
     points: [

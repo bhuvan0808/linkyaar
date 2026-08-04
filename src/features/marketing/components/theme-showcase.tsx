@@ -20,7 +20,7 @@ export async function ThemeShowcase() {
       <div className="mx-auto max-w-7xl px-6">
         <FadeIn className="max-w-3xl">
           <h2 className="font-display text-4xl leading-[1.02] font-black tracking-tight text-balance text-brand-ink sm:text-6xl">
-            Fifteen moods. Zero CSS required.
+            27 themes. Or design your own.
           </h2>
           <p className="mt-5 text-lg font-medium text-brand-ink/70">
             Every theme hand-tuned for contrast, rhythm, and feel. Restyle your whole page

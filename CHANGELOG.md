@@ -6,6 +6,25 @@ adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added (August 5, 2026)
+
+- Theme Studio: per-profile custom design (wallpapers, gradients, 6 fonts,
+  5 button styles, accents) with instant client-side live preview
+- 12 new premium themes (27 total); flagship default "Sunset Club"
+- Header layouts: Classic, Portrait, Minimal
+- AI bio & headline writer — free-tier provider chain (Gemini → Groq →
+  OpenRouter), hard-capped at 25 drafts/user/day
+- Platform-wide rate limiting via Upstash Redis (fail-open)
+- PostHog product analytics and Sentry error monitoring
+- Welcome emails, branded Supabase auth email templates
+- Support page with UPI donations; maintainer page; products footer
+- Socials editor redesigned as a tappable platform grid; pronoun presets
+
+### Changed (August 5, 2026)
+
+- Rebrand: chili red / forest green / cream palette; chart colors
+  re-validated for color-vision deficiency
+
 ### Changed
 
 - **License changed from MIT to AGPL-3.0-or-later** — see docs/LICENSING.md
