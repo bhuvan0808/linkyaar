@@ -104,6 +104,28 @@ export function AuthForm() {
     setConfirmSent(true)
   }
 
+  async function handleForgotPassword(email: string) {
+    const parsed = z.email().safeParse(email)
+    if (!parsed.success) {
+      toast.error('Enter your email above first, then tap Forgot password.')
+      return
+    }
+    setPending('magic')
+    const supabase = createClient()
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/callback?next=/dashboard/settings`,
+    })
+    setPending(null)
+    if (error) {
+      toast.error(error.message)
+      return
+    }
+    toast.success('Reset link sent — check your inbox', {
+      description:
+        'The link signs you in and takes you to Settings to set a new password.',
+    })
+  }
+
   async function handleMagicLink(email: string) {
     const parsed = z.email().safeParse(email)
     if (!parsed.success) {
@@ -230,20 +252,34 @@ export function AuthForm() {
               {pending === 'password' && <Loader2 className="animate-spin" aria-hidden />}
               Log in
             </Button>
-            <Button
-              type="button"
-              variant="ghost"
-              className="h-9 text-[13px] text-muted-foreground"
-              disabled={pending !== null}
-              onClick={() => handleMagicLink(signInForm.getValues('email'))}
-            >
-              {pending === 'magic' ? (
-                <Loader2 className="animate-spin" aria-hidden />
-              ) : (
-                <Wand2 aria-hidden />
-              )}
-              Email me a magic link instead
-            </Button>
+            <div className="flex items-center justify-center gap-1">
+              <Button
+                type="button"
+                variant="ghost"
+                className="h-9 text-[13px] text-muted-foreground"
+                disabled={pending !== null}
+                onClick={() => handleMagicLink(signInForm.getValues('email'))}
+              >
+                {pending === 'magic' ? (
+                  <Loader2 className="animate-spin" aria-hidden />
+                ) : (
+                  <Wand2 aria-hidden />
+                )}
+                Magic link
+              </Button>
+              <span className="text-xs text-muted-foreground" aria-hidden>
+                ·
+              </span>
+              <Button
+                type="button"
+                variant="ghost"
+                className="h-9 text-[13px] text-muted-foreground"
+                disabled={pending !== null}
+                onClick={() => handleForgotPassword(signInForm.getValues('email'))}
+              >
+                Forgot password?
+              </Button>
+            </div>
           </form>
         </TabsContent>
 
