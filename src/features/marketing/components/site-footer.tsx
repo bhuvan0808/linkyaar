@@ -58,6 +58,18 @@ const columns: {
       { label: 'License (AGPL-3.0)', href: '/license' },
     ],
   },
+  {
+    heading: 'Our products',
+    links: [
+      { label: 'LinkYaar', href: '/' },
+      {
+        label: 'Buy Me a Goddie',
+        href: 'https://goddie.linkyaar.com',
+        external: true,
+      },
+      { label: 'More coming soon ✨', href: '/support' },
+    ],
+  },
 ]
 
 export function SiteFooter() {
@@ -84,7 +96,7 @@ export function SiteFooter() {
             to you.
           </p>
         </div>
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5">
           {columns.map((column) => (
             <nav key={column.heading} aria-label={column.heading}>
               <h3 className="text-sm font-bold text-white">{column.heading}</h3>
@@ -115,7 +127,26 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-3 text-sm font-medium text-white/45 sm:flex-row sm:items-center sm:justify-between">
+        {/* Community build-with-us band */}
+        <div className="mt-16 flex flex-col items-start gap-4 rounded-3xl bg-white/5 p-7 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-display text-xl font-black tracking-tight text-white">
+              We build free, open-source products with the community.
+            </p>
+            <p className="mt-1.5 text-sm font-medium text-white/55">
+              Got a product idea? Let&apos;s build it together and give it to everyone —
+              that&apos;s the whole point.
+            </p>
+          </div>
+          <a
+            href="mailto:ideas@linkyaar.com?subject=Product%20idea%20for%20the%20LinkYaar%20community"
+            className="shrink-0 rounded-full bg-brand-cream px-6 py-3 text-sm font-bold text-brand-ink transition-transform duration-200 hover:scale-[1.03]"
+          >
+            💡 Build it with us
+          </a>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-3 text-sm font-medium text-white/45 sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 LinkYaar contributors · AGPL-3.0 licensed · open source forever</p>
           <Link
             href="/login?mode=signup"
