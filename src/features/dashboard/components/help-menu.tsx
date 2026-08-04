@@ -88,6 +88,11 @@ export function HelpMenu() {
           <DropdownMenuItem onSelect={() => setFeedbackOpen(true)}>
             <MessageSquareHeart aria-hidden /> Share feedback
           </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link href="/support" target="_blank">
+              💛 Support LinkYaar
+            </Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 

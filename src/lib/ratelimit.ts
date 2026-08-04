@@ -37,9 +37,9 @@ export const limiters = {
   feedback: makeLimiter(5, '1 h'), // per user
   click: makeLimiter(60, '1 m'), // per ip (log-skip only)
   view: makeLimiter(30, '1 m'), // per ip (log-skip only)
-  aiUser: makeLimiter(5, '1 d'), // per user per day
+  aiUser: makeLimiter(10, '1 d'), // per user per day
   aiBurst: makeLimiter(3, '1 m'), // per user burst
-  aiGlobal: makeLimiter(60, '1 d'), // whole platform per day
+  aiGlobal: makeLimiter(300, '1 d'), // whole platform per day
 }
 
 export type LimiterName = keyof typeof limiters

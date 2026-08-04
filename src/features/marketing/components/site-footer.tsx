@@ -15,6 +15,7 @@ const columns: {
       { label: 'About', href: '/about' },
       { label: 'Roadmap', href: '/roadmap' },
       { label: "What's new", href: '/changelog' },
+      { label: 'Support us 💛', href: '/support' },
       { label: 'GitHub', href: siteConfig.links.github, external: true },
     ],
   },

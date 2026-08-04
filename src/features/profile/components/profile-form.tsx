@@ -14,7 +14,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
-import { generateBio } from '@/features/ai/actions'
+import { aiWrite } from '@/features/ai/actions'
+import { LIMIT_PREFIX } from '@/features/ai/shared'
 import { updateProfile, type ProfileFormValues } from '@/features/profile/actions'
 import { type Profile } from '@/types/database'
 
@@ -29,7 +30,44 @@ const formSchema = z.object({
 
 export function ProfileForm({ profile }: { profile: Profile }) {
   const [saving, setSaving] = useState(false)
-  const [aiBusy, setAiBusy] = useState(false)
+  const [aiBusy, setAiBusy] = useState<'bio' | 'headline' | null>(null)
+
+  function handleAiError(message: string) {
+    if (message.startsWith(LIMIT_PREFIX)) {
+      toast.error(message.slice(LIMIT_PREFIX.length), {
+        description:
+          'LinkYaar runs on free infrastructure — you can keep writing manually below, or help us grow the free AI pool.',
+        duration: 9000,
+        action: {
+          label: 'Support us 💛',
+          onClick: () => window.open('/support', '_blank'),
+        },
+      })
+    } else {
+      toast.error(message)
+    }
+  }
+
+  async function runAi(kind: 'bio' | 'headline') {
+    setAiBusy(kind)
+    const result = await aiWrite({
+      kind,
+      name: form.getValues('display_name'),
+      occupation: form.getValues('occupation'),
+      vibe:
+        kind === 'bio'
+          ? form.getValues('headline') || form.getValues('bio')
+          : form.getValues('bio') || form.getValues('headline'),
+    })
+    setAiBusy(null)
+    if (result.error) handleAiError(result.error)
+    else if (result.text) {
+      form.setValue(kind, result.text, { shouldDirty: true })
+      toast.success(
+        `${kind === 'bio' ? 'Bio' : 'Headline'} drafted — edit to taste (10 AI drafts/day)`
+      )
+    }
+  }
 
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(formSchema),
@@ -74,7 +112,24 @@ export function ProfileForm({ profile }: { profile: Profile }) {
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="pf-headline">Headline</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="pf-headline">Headline</Label>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            disabled={aiBusy !== null}
+            className="h-7 gap-1.5 px-2 text-xs font-semibold text-accent"
+            onClick={() => runAi('headline')}
+          >
+            {aiBusy === 'headline' ? (
+              <Loader2 className="size-3.5 animate-spin" aria-hidden />
+            ) : (
+              <Sparkles className="size-3.5" aria-hidden />
+            )}
+            Write with AI
+          </Button>
+        </div>
         <Input
           id="pf-headline"
           placeholder="Illustrator · 200k friends on the internet"
@@ -92,24 +147,11 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             type="button"
             variant="ghost"
             size="sm"
-            disabled={aiBusy}
+            disabled={aiBusy !== null}
             className="h-7 gap-1.5 px-2 text-xs font-semibold text-accent"
-            onClick={async () => {
-              setAiBusy(true)
-              const result = await generateBio({
-                name: form.getValues('display_name'),
-                occupation: form.getValues('occupation'),
-                vibe: form.getValues('headline') || form.getValues('bio'),
-              })
-              setAiBusy(false)
-              if (result.error) toast.error(result.error)
-              else if (result.bio) {
-                form.setValue('bio', result.bio, { shouldDirty: true })
-                toast.success('Bio drafted — edit to taste (5 AI uses/day)')
-              }
-            }}
+            onClick={() => runAi('bio')}
           >
-            {aiBusy ? (
+            {aiBusy === 'bio' ? (
               <Loader2 className="size-3.5 animate-spin" aria-hidden />
             ) : (
               <Sparkles className="size-3.5" aria-hidden />
