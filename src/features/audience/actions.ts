@@ -1,8 +1,10 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { after } from 'next/server'
 import { z } from 'zod'
 
+import { notifyNewReview, notifyNewSubscriber } from '@/features/notifications/send'
 import { createAnonClient } from '@/lib/supabase/anon'
 import { createClient } from '@/lib/supabase/server'
 
@@ -40,6 +42,10 @@ export async function subscribe(input: {
   if (error && error.code !== '23505') {
     return { error: 'Could not subscribe right now. Try again.' }
   }
+  if (!error) {
+    const { profileId, email } = parsed.data
+    after(() => notifyNewSubscriber(profileId, email))
+  }
   return {}
 }
 
@@ -73,6 +79,9 @@ export async function submitReview(input: {
   })
 
   if (error) return { error: 'Could not send your review. Try again.' }
+
+  const { profileId, authorName, rating, body } = parsed.data
+  after(() => notifyNewReview(profileId, { authorName, rating, body }))
   return {}
 }
 

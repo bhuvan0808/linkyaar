@@ -4,6 +4,10 @@
     {
       "path": "/api/keepalive",
       "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/digest",
+      "schedule": "30 8 * * 1"
     }
   ]
 }

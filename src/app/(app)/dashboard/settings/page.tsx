@@ -11,6 +11,7 @@ import {
 import { Separator } from '@/components/ui/separator'
 import {
   DeleteAccountButton,
+  EmailNotificationsToggle,
   ExportButton,
   PasswordForm,
   VisibilityToggle,
@@ -25,9 +26,17 @@ export default async function SettingsPage() {
   if (!profile?.username) redirect('/onboarding')
 
   const supabase = await createClient()
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  const [
+    {
+      data: { user },
+    },
+    { data: settings },
+  ] = await Promise.all([
+    supabase.auth.getUser(),
+    supabase.from('user_settings').select('preferences').maybeSingle(),
+  ])
+  const prefs = settings?.preferences as { email_notifications?: boolean } | null
+  const emailNotifications = prefs?.email_notifications !== false
 
   return (
     <div className="flex max-w-2xl flex-col gap-6">
@@ -45,6 +54,8 @@ export default async function SettingsPage() {
         </CardHeader>
         <CardContent className="flex flex-col gap-5">
           <VisibilityToggle isPublic={profile.is_public} />
+          <Separator />
+          <EmailNotificationsToggle enabled={emailNotifications} />
           <Separator />
           <PasswordForm />
         </CardContent>

@@ -21,7 +21,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { setProfileVisibility } from '@/features/profile/actions'
-import { deleteAccount, exportData } from '@/features/settings/actions'
+import {
+  deleteAccount,
+  exportData,
+  setEmailNotifications,
+} from '@/features/settings/actions'
 import { createClient } from '@/lib/supabase/client'
 
 export function VisibilityToggle({ isPublic }: { isPublic: boolean }) {
@@ -47,6 +51,37 @@ export function VisibilityToggle({ isPublic }: { isPublic: boolean }) {
         </span>
       </span>
       <Switch checked={checked} onCheckedChange={handleChange} aria-label="Public page" />
+    </label>
+  )
+}
+
+export function EmailNotificationsToggle({ enabled }: { enabled: boolean }) {
+  const [checked, setChecked] = useState(enabled)
+
+  async function handleChange(next: boolean) {
+    setChecked(next)
+    const result = await setEmailNotifications(next)
+    if (result.error) {
+      setChecked(!next)
+      toast.error(result.error)
+    } else {
+      toast.success(next ? 'Email notifications on' : 'Email notifications off')
+    }
+  }
+
+  return (
+    <label className="flex items-center justify-between">
+      <span>
+        <span className="block text-sm font-medium">Email notifications</span>
+        <span className="block text-xs text-muted-foreground">
+          New subscribers, reviews to approve, and your weekly summary.
+        </span>
+      </span>
+      <Switch
+        checked={checked}
+        onCheckedChange={handleChange}
+        aria-label="Email notifications"
+      />
     </label>
   )
 }

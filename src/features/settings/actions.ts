@@ -4,6 +4,25 @@ import { redirect } from 'next/navigation'
 
 import { createClient } from '@/lib/supabase/server'
 
+export async function setEmailNotifications(
+  enabled: boolean
+): Promise<{ error?: string }> {
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
+
+  const { error } = await supabase
+    .from('user_settings')
+    .upsert(
+      { user_id: user.id, preferences: { email_notifications: enabled } },
+      { onConflict: 'user_id' }
+    )
+  if (error) return { error: 'Could not save your preference.' }
+  return {}
+}
+
 export async function deleteAccount(): Promise<{ error?: string } | never> {
   const supabase = await createClient()
   const {
