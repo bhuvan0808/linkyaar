@@ -1,128 +1,138 @@
 <div align="center">
 
+<img src="src/app/icon.png" width="96" alt="LinkYaar logo" />
+
 # LinkYaar
 
 **Everything you are. One beautiful link.**
 
-An open-source creator profile platform. Bring your links, socials, portfolio,
-and contact together in one beautiful page — designed with the care of Linear,
-Vercel, and Arc.
+A free, open-source link-in-bio platform — every "premium" feature, given away.
+Built with the polish of Linear and the openness of a public commons.
 
-[Roadmap](ROADMAP.md) · [Architecture](docs/ARCHITECTURE.md) · [Contributing](CONTRIBUTING.md)
+[**linkyaar.com**](https://linkyaar.com) · [Roadmap](https://linkyaar.com/roadmap) · [What's new](https://linkyaar.com/changelog) · [Support us 💛](https://linkyaar.com/support)
+
+[![CI](https://github.com/bhuvan0808/linkyaar/actions/workflows/ci.yml/badge.svg)](https://github.com/bhuvan0808/linkyaar/actions/workflows/ci.yml)
+[![CodeQL](https://github.com/bhuvan0808/linkyaar/actions/workflows/codeql.yml/badge.svg)](https://github.com/bhuvan0808/linkyaar/actions/workflows/codeql.yml)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-2f6b3c)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/bhuvan0808/linkyaar?color=c13a2a)](https://github.com/bhuvan0808/linkyaar/stargazers)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-f5ebd3)](CONTRIBUTING.md)
 
 </div>
 
 ---
 
+## Why LinkYaar?
+
+A creator's link-in-bio page is often the most-visited page they own — yet it
+usually lives on a closed platform that charges for basics, watermarks the
+free tier, and holds the audience hostage. LinkYaar gives all of it away:
+
+|                                                | LinkYaar (free) | Typical "Pro" plans |
+| ---------------------------------------------- | :-------------: | :-----------------: |
+| Unlimited links, drag & drop, scheduling       |       ✅        |         ✅          |
+| 27 themes **+ full custom Theme Studio**       |       ✅        |         💰          |
+| Custom fonts, button styles, header layouts    |       ✅        |         💰          |
+| Analytics: countries, sources, devices, CTR    |       ✅        |         💰          |
+| Subscriber collection + CSV export             |       ✅        |         💰          |
+| Moderated audience reviews                     |       ✅        |          —          |
+| AI bio & headline writer                       |       ✅        |         💰          |
+| QR codes (PNG/SVG), dynamic OG images, SEO     |       ✅        |         💰          |
+| Email notifications + weekly digests           |       ✅        |         💰          |
+| Remove branding ransom, data export, self-host |       ✅        |         💰          |
+
 ## Features
 
-- 🔗 **Unlimited links** with drag-and-drop reordering and per-link toggles
-- 👤 **Creator profiles** — username, bio, avatar, socials
-- 🎨 **Themes** — curated presets built on a token-based design system
-- 🔐 **Google sign-in** via Supabase Auth
-- 🌐 **SEO-first public pages** — `linkyaar.app/yourname`
-- 📱 **Mobile-first, WCAG AA**, and fast (Lighthouse 95+ target)
+- 🔗 **Links that behave** — unlimited, drag-and-drop, featured pins, schedules, one-tap hide
+- 🎨 **Theme Studio** — 27 hand-tuned themes plus a full editor: wallpapers, gradients, 6 fonts, 5 button styles, accent colors, header layouts — all with an **instant live preview**
+- ✨ **Free AI writer** — bio & headline drafts (25/day) on a 4-provider free-tier chain
+- 📈 **Private analytics** — views, clicks, CTR, countries, traffic sources, devices; no cookies, no IP logging, visible only to the owner
+- 👥 **Audience tools** — email subscribers (exportable) and owner-moderated reviews
+- 📬 **Email built in** — branded welcome, notification, and weekly digest emails (Resend)
+- 🔐 **Auth done right** — email, magic links, Google sign-in, forgot-password, RLS everywhere
+- 🛡️ **Production hardening** — Redis rate limiting (fail-open), Sentry, PostHog, CodeQL, Dependabot
+- 🌐 **SEO-first public pages** — `linkyaar.com/yourname` with JSON-LD, sitemaps, per-profile social cards
 
 ## Tech Stack
 
-| Layer     | Choice                                                     |
-| --------- | ---------------------------------------------------------- |
-| Framework | [Next.js](https://nextjs.org) (App Router) + React         |
-| Language  | TypeScript (strict, no `any`)                              |
-| Styling   | Tailwind CSS v4 + [shadcn/ui](https://ui.shadcn.com)       |
-| Motion    | Motion (Framer Motion)                                     |
-| Data      | TanStack Query · React Hook Form · Zod                     |
-| Backend   | [Supabase](https://supabase.com) (Postgres, Auth, Storage) |
-| Deploy    | Vercel                                                     |
+| Layer         | Choice                                                                    |
+| ------------- | ------------------------------------------------------------------------- |
+| Framework     | [Next.js](https://nextjs.org) (App Router) + React, strict TypeScript     |
+| Styling       | Tailwind CSS v4 + [shadcn/ui](https://ui.shadcn.com), OKLCH design tokens |
+| Backend       | [Supabase](https://supabase.com) — Postgres (RLS), Auth, Storage          |
+| Email         | [Resend](https://resend.com)                                              |
+| Rate limiting | [Upstash Redis](https://upstash.com) (optional, fail-open)                |
+| AI            | Gemini → Groq → OpenRouter free-tier chain (optional)                     |
+| Observability | PostHog + Sentry (optional)                                               |
+| Deploy        | Vercel                                                                    |
 
-## Quick Start
+## Self-hosting / Quick Start
 
-**Prerequisites:** Node 20+, [pnpm](https://pnpm.io), a [Supabase](https://supabase.com) project.
+Everything below the first three vars is **optional** — LinkYaar degrades
+gracefully when a service isn't configured.
 
 ```bash
-# 1. Clone and install
+# 1. Clone and install (Node 20+, pnpm)
 git clone https://github.com/bhuvan0808/linkyaar.git
-cd linkyaar
-pnpm install
+cd linkyaar && pnpm install
 
-# 2. Configure environment
+# 2. Configure — copy and fill (Supabase URL + key are the only requirements)
 cp .env.example .env.local
-# Fill in your Supabase URL and publishable key (dashboard → Settings → API)
 
-# 3. Apply the database schema
-# Either paste supabase/migrations/*.sql into the Supabase SQL editor,
-# or link the project and push:
+# 3. Apply the database schema to your free Supabase project
 pnpm dlx supabase link --project-ref <your-ref>
-pnpm dlx supabase db push
+pnpm dlx supabase db push   # or paste supabase/migrations/*.sql into the SQL editor
 
-# 4. Enable Google auth
-# Supabase dashboard → Authentication → Providers → Google
-
-# 5. Run
+# 4. Run
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Full architecture notes live in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) —
+including why there is no API server (Postgres RLS _is_ the authorization
+layer).
 
 ## Scripts
 
-| Command          | Purpose                |
-| ---------------- | ---------------------- |
-| `pnpm dev`       | Dev server (Turbopack) |
-| `pnpm build`     | Production build       |
-| `pnpm lint`      | ESLint                 |
-| `pnpm typecheck` | TypeScript, no emit    |
-| `pnpm format`    | Prettier write         |
-
-## Project Structure
-
-```
-src/
-├── app/          # Routes (App Router)
-├── components/   # ui/ (shadcn primitives) + shared/
-├── features/     # Feature modules (auth, profile, links, …)
-├── hooks/        # Reusable hooks
-├── lib/          # Framework glue (supabase clients, env, utils)
-├── providers/    # React context providers
-├── services/     # Data-access layer
-├── styles/       # globals.css — design tokens live here
-├── types/        # Shared types (database.ts mirrors the schema)
-└── config/       # Site constants
-```
-
-See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the full picture.
+| Command                                  | Purpose                                  |
+| ---------------------------------------- | ---------------------------------------- |
+| `pnpm dev`                               | Dev server (Turbopack)                   |
+| `pnpm build`                             | Production build                         |
+| `pnpm lint` / `pnpm typecheck`           | ESLint / strict TS                       |
+| `pnpm license:check` / `license:fix`     | SPDX header enforcement                  |
+| `node scripts/generate-brand-assets.cjs` | Regenerate favicon/OG from brand sources |
 
 ## Contributing
 
-We'd love your help — read [CONTRIBUTING.md](CONTRIBUTING.md) to get started.
-All commits follow [Conventional Commits](https://www.conventionalcommits.org);
-hooks enforce lint, format, and message style automatically.
+Contributions of every size are welcome — code, design, docs, ideas.
+Start with [CONTRIBUTING.md](CONTRIBUTING.md), grab a
+[good first issue](https://github.com/bhuvan0808/linkyaar/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22),
+or open a [Discussion](https://github.com/bhuvan0808/linkyaar/discussions).
+Conventional Commits, strict TypeScript, and design tokens are enforced by
+hooks and CI.
 
-## Self-hosting
+Got a whole product idea? We build free, open-source tools with the
+community — email **ideas@linkyaar.com**.
 
-LinkYaar is fully self-hostable — the [Quick Start](#quick-start) above is the
-complete recipe: a free Supabase project, a Vercel deployment (or any Node
-host), and the SQL in `supabase/migrations/`. No license keys, no phone-home,
-no feature gates.
+## Maintainer
+
+Built and maintained by **[Bhuvan Boddu](https://github.com/bhuvan0808)** —
+solo maintainer, so replies can take a day or two, but every message gets
+read. [LinkedIn](https://www.linkedin.com/in/bhuvanboddu/) ·
+[Instagram](https://www.instagram.com/buildwithbhuvan) ·
+[Say hi](mailto:hello@linkyaar.com)
+
+If LinkYaar saves you a Linktree subscription,
+[consider supporting it](https://linkyaar.com/support) — donations pay for
+servers and a bigger free AI pool.
 
 ## License
 
-LinkYaar is licensed under the **GNU Affero General Public License v3.0**
-([AGPL-3.0-or-later](LICENSE)).
+**AGPL-3.0-or-later** — use it, self-host it, even charge for hosting it; but
+if you run a modified version as a public service, you must share your source.
+Open source with teeth, the same license as Cal.com and Grafana. Plain-language
+guide in [docs/LICENSING.md](docs/LICENSING.md) · full text in [LICENSE](LICENSE).
 
-**What that means in practice:**
+Copyright © 2026 Bhuvan Boddu and LinkYaar contributors.
 
-- ✅ Use it, self-host it, modify it, and even charge money for hosting it —
-  freely and forever.
-- 🔁 If you run a **modified** version as a public service, you must make your
-  modified source code available to its users under the same license.
-- 🧾 Keep license and copyright notices intact; new source files carry an
-  `SPDX-License-Identifier: AGPL-3.0-or-later` header (CI enforces this —
-  run `pnpm license:fix` to add headers automatically).
-
-**For contributors:** by submitting a pull request you agree that your
-contribution is licensed under AGPL-3.0-or-later. See
-[docs/LICENSING.md](docs/LICENSING.md) for the full explanation of what AGPL
-means for users, self-hosters, and contributors.
-
-Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors.
+<div align="center">
+<sub>⭐ If this repo is useful to you, a star helps more creators find it.</sub>
+</div>
