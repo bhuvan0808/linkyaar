@@ -57,7 +57,7 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
   const data = await getPublicProfile(username)
   if (!data) notFound()
 
-  const { profile, links, socials, reviews, tokens } = data
+  const { profile, links, sections, socials, reviews, tokens } = data
   const name = profile.display_name ?? `@${profile.username}`
   const detailLine = [profile.occupation, profile.location].filter(Boolean).join(' · ')
 
@@ -175,8 +175,8 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
           <SocialsRow socials={socials} tokens={tokens} />
         </div>
 
-        {/* Links */}
-        <div className="mt-8 flex w-full flex-col gap-3.5">
+        {/* Links — grouped into categories when the creator uses them */}
+        <div className="mt-8 flex w-full flex-col gap-6">
           {links.length === 0 ? (
             <div
               className="flex flex-col items-center gap-3 rounded-3xl px-6 py-10 text-center"
@@ -202,7 +202,21 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
               </p>
             </div>
           ) : (
-            links.map((link) => <PublicLink key={link.id} link={link} tokens={tokens} />)
+            sections.map((section) => (
+              <section
+                key={section.group?.id ?? 'ungrouped'}
+                className="flex w-full flex-col gap-3.5"
+              >
+                {section.group ? (
+                  <h2 className="mt-1 text-center text-xs font-bold tracking-widest uppercase opacity-60">
+                    {section.group.title}
+                  </h2>
+                ) : null}
+                {section.links.map((link) => (
+                  <PublicLink key={link.id} link={link} tokens={tokens} />
+                ))}
+              </section>
+            ))
           )}
         </div>
 

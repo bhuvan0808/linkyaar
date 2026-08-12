@@ -5,11 +5,24 @@ import { cache } from 'react'
 
 import { createClient } from '@/lib/supabase/server'
 import { mergeThemeTokens, type ThemeTokens } from '@/features/themes/tokens'
-import { type Link, type Profile, type SocialLink, type Tables } from '@/types/database'
+import {
+  type Link,
+  type LinkGroup,
+  type Profile,
+  type SocialLink,
+  type Tables,
+} from '@/types/database'
+
+/** A category heading plus the links under it, in display order. */
+export interface LinkSection {
+  group: LinkGroup | null
+  links: Link[]
+}
 
 export interface PublicProfileData {
   profile: Profile
   links: Link[]
+  sections: LinkSection[]
   socials: SocialLink[]
   reviews: Tables<'reviews'>[]
   tokens: ThemeTokens
@@ -35,7 +48,7 @@ export const getPublicProfile = cache(
 
     const nowIso = new Date().toISOString()
 
-    const [linksRes, socialsRes, reviewsRes, themeRes] = await Promise.all([
+    const [linksRes, groupsRes, socialsRes, reviewsRes, themeRes] = await Promise.all([
       supabase
         .from('links')
         .select('*')
@@ -44,6 +57,11 @@ export const getPublicProfile = cache(
         .or(`starts_at.is.null,starts_at.lte.${nowIso}`)
         .or(`ends_at.is.null,ends_at.gte.${nowIso}`)
         .order('is_featured', { ascending: false })
+        .order('position'),
+      supabase
+        .from('link_groups')
+        .select('*')
+        .eq('profile_id', profile.id)
         .order('position'),
       supabase
         .from('social_links')
@@ -64,9 +82,23 @@ export const getPublicProfile = cache(
         : Promise.resolve({ data: null }),
     ])
 
+    const links = linksRes.data ?? []
+    const groups = groupsRes.data ?? []
+
+    // Ungrouped links first, then each group (in order) with its links.
+    // Featured links stay pinned within their bucket by the query order.
+    const sections: LinkSection[] = []
+    const ungrouped = links.filter((l) => !l.group_id)
+    if (ungrouped.length > 0) sections.push({ group: null, links: ungrouped })
+    for (const group of groups) {
+      const groupLinks = links.filter((l) => l.group_id === group.id)
+      if (groupLinks.length > 0) sections.push({ group, links: groupLinks })
+    }
+
     return {
       profile,
-      links: linksRes.data ?? [],
+      links,
+      sections,
       socials: socialsRes.data ?? [],
       reviews: reviewsRes.data ?? [],
       tokens: mergeThemeTokens(themeRes.data?.tokens ?? null, profile.custom_theme),

@@ -147,6 +147,7 @@ export interface Database {
           is_featured: boolean
           starts_at: string | null
           ends_at: string | null
+          group_id: string | null
           created_at: string
           updated_at: string
         }
@@ -163,6 +164,7 @@ export interface Database {
           is_featured?: boolean
           starts_at?: string | null
           ends_at?: string | null
+          group_id?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -179,8 +181,33 @@ export interface Database {
           is_featured?: boolean
           starts_at?: string | null
           ends_at?: string | null
+          group_id?: string | null
           created_at?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      link_groups: {
+        Row: {
+          id: string
+          profile_id: string
+          title: string
+          position: number
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          profile_id: string
+          title: string
+          position?: number
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          profile_id?: string
+          title?: string
+          position?: number
+          created_at?: string
         }
         Relationships: []
       }
@@ -356,5 +383,6 @@ export type TablesUpdate<T extends keyof Database['public']['Tables']> =
 
 export type Profile = Tables<'profiles'>
 export type Link = Tables<'links'>
+export type LinkGroup = Tables<'link_groups'>
 export type SocialLink = Tables<'social_links'>
 export type Theme = Tables<'themes'>

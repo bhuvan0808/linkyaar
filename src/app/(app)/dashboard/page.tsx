@@ -16,20 +16,23 @@ export default async function DashboardLinksPage() {
   if (!profile?.username) redirect('/onboarding')
 
   const supabase = await createClient()
-  const { data: links } = await supabase
-    .from('links')
-    .select('*')
-    .eq('profile_id', profile.id)
-    .order('position')
+  const [{ data: links }, { data: groups }] = await Promise.all([
+    supabase.from('links').select('*').eq('profile_id', profile.id).order('position'),
+    supabase
+      .from('link_groups')
+      .select('*')
+      .eq('profile_id', profile.id)
+      .order('position'),
+  ])
 
   return (
     <div className="flex gap-8">
       <section className="max-w-2xl min-w-0 flex-1">
         <h1 className="text-2xl font-semibold tracking-tight">Links</h1>
         <p className="mt-1 mb-6 text-[15px] text-muted-foreground">
-          Drag to reorder. Toggle to hide. Star to feature.
+          Drag to reorder. Toggle to hide. Group into categories.
         </p>
-        <LinksManager links={links ?? []} />
+        <LinksManager links={links ?? []} groups={groups ?? []} />
       </section>
       <PreviewFrame username={profile.username} />
     </div>
