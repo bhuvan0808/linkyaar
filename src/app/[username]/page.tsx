@@ -2,25 +2,20 @@
 // Copyright (c) 2026 Bhuvan Boddu and LinkYaar contributors
 
 import { type Metadata } from 'next'
-import { headers } from 'next/headers'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { after } from 'next/server'
 
+import { ConsentGate } from '@/features/consent/components/consent-gate'
 import { PublicLink } from '@/features/public-profile/components/public-link'
 import { ReviewsBlock } from '@/features/public-profile/components/reviews-block'
 import { SocialsRow } from '@/features/public-profile/components/socials-row'
 import { SubscribeCard } from '@/features/public-profile/components/subscribe-card'
 import { THEME_FONTS } from '@/features/themes/fonts'
-import { allow } from '@/lib/ratelimit'
-import { createAnonClient } from '@/lib/supabase/anon'
-import { parseUserAgent } from '@/lib/ua'
 import { siteConfig } from '@/config/site'
 import { getPublicProfile } from '@/services/profiles'
 
 interface PageProps {
   params: Promise<{ username: string }>
-  searchParams: Promise<{ preview?: string }>
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -52,8 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function PublicProfilePage({ params, searchParams }: PageProps) {
-  const [{ username }, { preview }] = await Promise.all([params, searchParams])
+export default async function PublicProfilePage({ params }: PageProps) {
+  const { username } = await params
   const data = await getPublicProfile(username)
   if (!data) notFound()
 
@@ -61,32 +56,9 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
   const name = profile.display_name ?? `@${profile.username}`
   const detailLine = [profile.occupation, profile.location].filter(Boolean).join(' · ')
 
-  // Dashboard iframe preview should not inflate analytics.
-  // after() defers the insert until the response has been sent, so it
-  // must use the cookie-free anon client (request scope is gone by then).
-  if (preview !== '1') {
-    const headerList = await headers()
-    const referrer = headerList.get('referer')
-    const country = headerList.get('x-vercel-ip-country')
-    const ua = parseUserAgent(headerList.get('user-agent'))
-    const viewIp =
-      headerList.get('x-real-ip') ??
-      headerList.get('x-forwarded-for')?.split(',')[0]?.trim() ??
-      'unknown'
-    after(async () => {
-      // 30 logged views/min/ip — page always renders, only logging skips.
-      if (!(await allow('view', viewIp))) return
-      const supabase = createAnonClient()
-      await supabase.from('profile_views').insert({
-        profile_id: profile.id,
-        referrer,
-        country,
-        device: ua.device,
-        browser: ua.browser,
-        os: ua.os,
-      })
-    })
-  }
+  // Analytics are recorded client-side ONLY after the visitor grants
+  // consent (DPDP Act 2023) — see <ConsentGate />. Nothing is collected
+  // on this server render.
 
   const personJsonLd = {
     '@context': 'https://schema.org',
@@ -262,6 +234,8 @@ export default async function PublicProfilePage({ params, searchParams }: PagePr
           </span>
         </Link>
       </footer>
+
+      <ConsentGate profileId={profile.id} tokens={tokens} />
     </main>
   )
 }

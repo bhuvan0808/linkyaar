@@ -3,6 +3,7 @@
 
 import { type Metadata } from 'next'
 
+import { ConsentControls } from '@/features/consent/components/consent-controls'
 import { ProsePage } from '@/features/marketing/components/prose-page'
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export default function CookiesPage() {
   return (
     <ProsePage
       title="Cookie Notice"
-      updated="August 3, 2026"
+      updated="August 6, 2026"
       intro="This is a short page, because we use almost no cookies — and zero tracking ones."
     >
       <h2>Cookies we set</h2>
@@ -24,21 +25,32 @@ export default function CookiesPage() {
           when you sign in, so you stay signed in between visits. Strictly necessary;
           removed on sign-out.
         </li>
+        <li>
+          <strong>Analytics consent</strong> (<code>ly_analytics_consent</code>) — set{' '}
+          <em>only</em> if you tap “Accept” on the analytics prompt when visiting a
+          creator&apos;s page. It records your choice so we don&apos;t ask again, and it
+          is the switch that turns anonymous visit stats on. Never set without your
+          explicit consent.
+        </li>
       </ul>
 
       <h2>Cookies we do not set</h2>
       <ul>
         <li>No advertising or cross-site tracking cookies</li>
         <li>No third-party analytics cookies</li>
-        <li>No cookies at all for visitors browsing public profiles</li>
+        <li>No IP logging, ever</li>
+        <li>Nothing at all until you opt in</li>
       </ul>
 
-      <h2>Managing cookies</h2>
+      <h2>Your analytics consent</h2>
       <p>
-        Because the only cookies are strictly necessary for signing in, there is no
-        consent banner to click and nothing to configure. Blocking these cookies in your
-        browser simply means you cannot stay signed in.
+        When you visit a creator&apos;s public page, a small prompt asks whether you agree
+        to share anonymous visit stats (country and device type — no IP, no cross-site
+        tracking) so the creator can see their analytics. It disappears on its own after a
+        few seconds; if you don&apos;t tap Accept, <strong>nothing is collected</strong>.
+        You can withdraw your consent at any time, right here — as easily as you gave it:
       </p>
+      <ConsentControls />
     </ProsePage>
   )
 }

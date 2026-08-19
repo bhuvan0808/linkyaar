@@ -3,6 +3,7 @@
 
 import { NextResponse, type NextRequest } from 'next/server'
 
+import { CONSENT_COOKIE, CONSENT_VALUE } from '@/features/consent/shared'
 import { allow } from '@/lib/ratelimit'
 import { createClient } from '@/lib/supabase/server'
 import { parseUserAgent } from '@/lib/ua'
@@ -31,13 +32,15 @@ export async function GET(
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  // Rate limit protects ANALYTICS ONLY (60 logged clicks/min/ip) —
-  // the redirect itself always goes through, no matter what.
+  // Click logging happens ONLY with the visitor's analytics consent
+  // (DPDP Act 2023). The redirect ALWAYS goes through either way.
+  const consented = request.cookies.get(CONSENT_COOKIE)?.value === CONSENT_VALUE
   const ip =
     request.headers.get('x-real-ip') ??
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
     'unknown'
-  if (await allow('click', ip)) {
+  // Rate limit is a second guard (120 logged clicks/min/ip).
+  if (consented && (await allow('click', ip))) {
     // Await the insert (it is a lazy thenable), but ignore failures —
     // analytics must never block the redirect.
     await supabase.from('link_clicks').insert({

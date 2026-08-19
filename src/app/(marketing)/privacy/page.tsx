@@ -30,10 +30,13 @@ export default function PrivacyPage() {
           socials you choose to publish. This is public by design.
         </li>
         <li>
-          <strong>Analytics events</strong> — when someone views your page or clicks a
-          link we record a timestamp, the referring site, and a country-level location
-          derived from the request. We do not record IP addresses, and we set no tracking
-          cookies on visitors.
+          <strong>Analytics events (consent-based)</strong> — a page view or link click is
+          recorded <em>only after the visitor explicitly agrees</em> via the consent
+          prompt. When they do, we store a timestamp, the referring site, a country-level
+          location, and a coarse device type. We never record IP addresses, and if the
+          visitor declines (or ignores the prompt), nothing is collected at all. This is
+          our approach to consent under India&apos;s Digital Personal Data Protection Act,
+          2023.
         </li>
       </ul>
 
@@ -51,10 +54,11 @@ export default function PrivacyPage() {
         commitments.
       </p>
 
-      <h2>Cookies</h2>
+      <h2>Cookies &amp; consent</h2>
       <p>
-        We use only the session cookies required to keep you signed in. Visitors to public
-        profiles get no cookies at all. Details in the{' '}
+        We use session cookies to keep you signed in, and — only if a visitor opts in —
+        one cookie to remember their analytics consent. No tracking cookies, ever. You can
+        review or withdraw analytics consent at any time on the{' '}
         <Link href="/cookies">Cookie Notice</Link>.
       </p>
 
